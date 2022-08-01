@@ -26,3 +26,17 @@ export function getPopularAnime() {
     error,
   };
 }
+
+export function getAnimeDetails(id) {
+  const { data, error } = useSWR(
+    `https://api.jikan.moe/v4/anime/${id}/full`,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+  };
+}
+
+export function getAnimeCharacters() {}

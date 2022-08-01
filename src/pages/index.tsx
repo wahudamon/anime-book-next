@@ -8,7 +8,11 @@ import { CTA } from "../components/CTA";
 import { Footer } from "../components/Footer";
 
 import useSWR from "swr";
-import { getPopularAnime, getTodayReleases } from "../lib/queriesList";
+import {
+  getAnimeDetails,
+  getPopularAnime,
+  getTodayReleases,
+} from "../lib/queriesList";
 
 const Index = () => {
   // const { data, error } = useSWR(
@@ -19,7 +23,7 @@ const Index = () => {
   // if (error) return "An error has occured.";
   // if (!data) return "Loading...";
 
-  // const { data, error } = getPopularAnime();
+  // const { data, error } = getAnimeDetails("16498");
 
   // if (data) console.log(data);
 
