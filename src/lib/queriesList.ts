@@ -27,6 +27,18 @@ export function getPopularAnime() {
   };
 }
 
+export function searchAnimeByTitle(title) {
+  const { data, error } = useSWR(
+    `https://api.jikan.moe/v4/anime?q=${title.toLowerCase()}&orderBy=title`,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+  };
+}
+
 export function getAnimeDetails(id) {
   const { data, error } = useSWR(
     `https://api.jikan.moe/v4/anime/${id}/full`,
