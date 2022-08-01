@@ -8,26 +8,29 @@ import { CTA } from "../components/CTA";
 import { Footer } from "../components/Footer";
 
 import useSWR from "swr";
+import { getTodayReleases } from "../lib/queriesList";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Index = () => {
-  const { data, error } = useSWR(
-    "https://api.github.com/repos/vercel/swr",
-    fetcher
-  );
+  // const { data, error } = useSWR(
+  //   "https://api.github.com/repos/vercel/swr",
+  //   fetcher
+  // );
 
-  if (error) return "An error has occured.";
-  if (!data) return "Loading...";
+  // if (error) return "An error has occured.";
+  // if (!data) return "Loading...";
+
+  const { data, error } = getTodayReleases();
 
   return (
     <Container height="100vh">
       <Hero />
-      <Main>
+      {/* <Main>
         <Text color="text">Subscribers {data.subscribers_count}</Text>
         <Text color="text">Forks {data.forks_count}</Text>
         <Text color="text">Stargazers {data.stargazers_count}</Text>
-      </Main>
+      </Main> */}
 
       <DarkModeSwitch />
       <Footer>
