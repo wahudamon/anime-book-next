@@ -1,6 +1,5 @@
 import useSWR from "swr";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import { fetcher } from "./constants";
 
 export function getTodayReleases() {
   const day = Intl.DateTimeFormat("en", { weekday: "long" }).format(new Date());

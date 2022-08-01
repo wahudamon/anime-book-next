@@ -10,8 +10,6 @@ import { Footer } from "../components/Footer";
 import useSWR from "swr";
 import { getTodayReleases } from "../lib/queriesList";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
 const Index = () => {
   // const { data, error } = useSWR(
   //   "https://api.github.com/repos/vercel/swr",
