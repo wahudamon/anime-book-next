@@ -39,4 +39,26 @@ export function getAnimeDetails(id) {
   };
 }
 
-export function getAnimeCharacters() {}
+export function getAnimeCharacters(id) {
+  const { data, error } = useSWR(
+    `https://api.jikan.moe/v4/anime/${id}/characters`,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+  };
+}
+
+export function getAnimeEpisodes(id) {
+  const { data, error } = useSWR(
+    `https://api.jikan.moe/v4/anime/${id}/episodes`,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+  };
+}

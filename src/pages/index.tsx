@@ -9,7 +9,9 @@ import { Footer } from "../components/Footer";
 
 import useSWR from "swr";
 import {
+  getAnimeCharacters,
   getAnimeDetails,
+  getAnimeEpisodes,
   getPopularAnime,
   getTodayReleases,
 } from "../lib/queriesList";
@@ -23,7 +25,7 @@ const Index = () => {
   // if (error) return "An error has occured.";
   // if (!data) return "Loading...";
 
-  // const { data, error } = getAnimeDetails("16498");
+  // const { data, error } = getAnimeEpisodes("16498");
 
   // if (data) console.log(data);
 
