@@ -14,3 +14,15 @@ export function getTodayReleases() {
     error,
   };
 }
+
+export function getPopularAnime() {
+  const { data, error } = useSWR(
+    `https://api.jikan.moe/v4/top/anime?page=1&filter=bypopularity`,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+  };
+}

@@ -8,7 +8,7 @@ import { CTA } from "../components/CTA";
 import { Footer } from "../components/Footer";
 
 import useSWR from "swr";
-import { getTodayReleases } from "../lib/queriesList";
+import { getPopularAnime, getTodayReleases } from "../lib/queriesList";
 
 const Index = () => {
   // const { data, error } = useSWR(
@@ -19,7 +19,9 @@ const Index = () => {
   // if (error) return "An error has occured.";
   // if (!data) return "Loading...";
 
-  const { data, error } = getTodayReleases();
+  // const { data, error } = getPopularAnime();
+
+  // if (data) console.log(data);
 
   return (
     <Container height="100vh">
