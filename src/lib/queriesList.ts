@@ -13,6 +13,15 @@ export function getUpcoming() {
   };
 }
 
+export function getSeasonsList() {
+  const { data, error } = useSWR(`${apiUrl}/seasons`, fetcher);
+
+  return {
+    data,
+    error,
+  };
+}
+
 export function getSeasonalAnimeList(year, season, num) {
   const { data, error } = useSWR(
     `${apiUrl}/seasons/${year}/${season}?page=${num}&sfw`,
