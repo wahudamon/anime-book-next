@@ -9,6 +9,7 @@ import { Footer } from "../components/Footer";
 
 import useSWR from "swr";
 import {
+  getAiringAnimes,
   getAnimeCharacters,
   getAnimeDetails,
   getAnimeEpisodes,
@@ -32,7 +33,7 @@ const Index = () => {
 
   // const { data, error } = getAnimeVideos("48895");
   // const { data, error } = getSeasonalAnimeList("2022", "summer", 1);
-  // const { data, error } = getSeasonsList();
+  // const { data, error } = getAiringAnimes();
 
   // if (data) console.log(data);
 

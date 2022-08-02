@@ -34,6 +34,15 @@ export function getSeasonalAnimeList(year, season, num) {
   };
 }
 
+export function getAiringAnimes() {
+  const { data, error } = useSWR(`${apiUrl}/seasons/now?sfw`, fetcher);
+
+  return {
+    data,
+    error,
+  };
+}
+
 export function getTodayReleases() {
   const day = Intl.DateTimeFormat("en", { weekday: "long" }).format(new Date());
 
