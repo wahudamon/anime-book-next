@@ -13,6 +13,7 @@ import {
   getAnimeCharacters,
   getAnimeDetails,
   getAnimeEpisodes,
+  getAnimeRecommendations,
   getAnimeVideos,
   getPopularAnime,
   getSeasonalAnimeList,
@@ -31,11 +32,11 @@ const Index = () => {
   // if (error) return "An error has occured.";
   // if (!data) return "Loading...";
 
-  // const { data, error } = getAnimeVideos("48895");
+  const { data, error } = getAnimeRecommendations("48895");
   // const { data, error } = getSeasonalAnimeList("2022", "summer", 1);
   // const { data, error } = getAiringAnimes();
 
-  // if (data) console.log(data);
+  if (data) console.log(data);
 
   return (
     <Container height="100vh">

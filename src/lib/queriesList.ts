@@ -110,3 +110,15 @@ export function getAnimeVideos(id) {
     error,
   };
 }
+
+export function getAnimeRecommendations(id) {
+  const { data, error } = useSWR(
+    `${apiUrl}/anime/${id}/recommendations`,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+  };
+}
