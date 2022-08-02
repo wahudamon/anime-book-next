@@ -122,3 +122,12 @@ export function getAnimeRecommendations(id) {
     error,
   };
 }
+
+export function getAnimeReviews(id) {
+  const { data, error } = useSWR(`${apiUrl}/anime/${id}/reviews`, fetcher);
+
+  return {
+    data,
+    error,
+  };
+}
