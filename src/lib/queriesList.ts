@@ -16,10 +16,7 @@ export function getUpcoming() {
 export function getTodayReleases() {
   const day = Intl.DateTimeFormat("en", { weekday: "long" }).format(new Date());
 
-  const { data, error } = useSWR(
-    `https://api.jikan.moe/v4/schedules/${day}`,
-    fetcher
-  );
+  const { data, error } = useSWR(`${apiUrl}/schedules/${day}`, fetcher);
 
   return {
     data,
@@ -29,7 +26,7 @@ export function getTodayReleases() {
 
 export function getPopularAnime() {
   const { data, error } = useSWR(
-    `https://api.jikan.moe/v4/top/anime?page=1&filter=bypopularity`,
+    `${apiUrl}/top/anime?page=1&filter=bypopularity`,
     fetcher
   );
 
@@ -41,7 +38,7 @@ export function getPopularAnime() {
 
 export function searchAnimeByTitle(title) {
   const { data, error } = useSWR(
-    `https://api.jikan.moe/v4/anime?q=${title.toLowerCase()}&orderBy=title`,
+    `${apiUrl}/anime?q=${title.toLowerCase()}&orderBy=title`,
     fetcher
   );
 
@@ -52,10 +49,7 @@ export function searchAnimeByTitle(title) {
 }
 
 export function getAnimeDetails(id) {
-  const { data, error } = useSWR(
-    `https://api.jikan.moe/v4/anime/${id}/full`,
-    fetcher
-  );
+  const { data, error } = useSWR(`${apiUrl}/anime/${id}/full`, fetcher);
 
   return {
     data,
@@ -64,10 +58,7 @@ export function getAnimeDetails(id) {
 }
 
 export function getAnimeCharacters(id) {
-  const { data, error } = useSWR(
-    `https://api.jikan.moe/v4/anime/${id}/characters`,
-    fetcher
-  );
+  const { data, error } = useSWR(`${apiUrl}/anime/${id}/characters`, fetcher);
 
   return {
     data,
@@ -76,10 +67,7 @@ export function getAnimeCharacters(id) {
 }
 
 export function getAnimeEpisodes(id) {
-  const { data, error } = useSWR(
-    `https://api.jikan.moe/v4/anime/${id}/episodes`,
-    fetcher
-  );
+  const { data, error } = useSWR(`${apiUrl}/anime/${id}/episodes`, fetcher);
 
   return {
     data,
