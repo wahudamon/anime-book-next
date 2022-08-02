@@ -55,10 +55,7 @@ export function getTodayReleases() {
 }
 
 export function getPopularAnime() {
-  const { data, error } = useSWR(
-    `${apiUrl}/top/anime?page=1&filter=bypopularity`,
-    fetcher
-  );
+  const { data, error } = useSWR(`${apiUrl}top/anime?page=1`, fetcher);
 
   return {
     data,
