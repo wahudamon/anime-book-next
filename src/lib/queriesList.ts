@@ -1,5 +1,17 @@
 import useSWR from "swr";
-import { fetcher } from "./constants";
+import { apiUrl, fetcher } from "./constants";
+
+export function getUpcoming() {
+  const { data, error } = useSWR(
+    `${apiUrl}/seasons/upcoming?page=1&sfw`,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+  };
+}
 
 export function getTodayReleases() {
   const day = Intl.DateTimeFormat("en", { weekday: "long" }).format(new Date());

@@ -14,6 +14,7 @@ import {
   getAnimeEpisodes,
   getPopularAnime,
   getTodayReleases,
+  getUpcoming,
   searchAnimeByTitle,
 } from "../lib/queriesList";
 
@@ -26,7 +27,7 @@ const Index = () => {
   // if (error) return "An error has occured.";
   // if (!data) return "Loading...";
 
-  // const { data, error } = searchAnimeByTitle("Kuroko");
+  // const { data, error } = getUpcoming();
 
   // if (data) console.log(data);
 
