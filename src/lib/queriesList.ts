@@ -74,3 +74,12 @@ export function getAnimeEpisodes(id) {
     error,
   };
 }
+
+export function getAnimeVideos(id) {
+  const { data, error } = useSWR(`${apiUrl}/anime/${id}/videos`, fetcher);
+
+  return {
+    data,
+    error,
+  };
+}

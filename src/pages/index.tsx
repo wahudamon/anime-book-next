@@ -12,6 +12,7 @@ import {
   getAnimeCharacters,
   getAnimeDetails,
   getAnimeEpisodes,
+  getAnimeVideos,
   getPopularAnime,
   getTodayReleases,
   getUpcoming,
@@ -27,7 +28,7 @@ const Index = () => {
   // if (error) return "An error has occured.";
   // if (!data) return "Loading...";
 
-  // const { data, error } = getUpcoming();
+  // const { data, error } = getAnimeVideos("48895");
 
   // if (data) console.log(data);
 
