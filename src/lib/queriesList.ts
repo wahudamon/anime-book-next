@@ -13,6 +13,18 @@ export function getUpcoming() {
   };
 }
 
+export function getSeasonalAnimeList(year, season, num) {
+  const { data, error } = useSWR(
+    `${apiUrl}/seasons/${year}/${season}?page=${num}&sfw`,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+  };
+}
+
 export function getTodayReleases() {
   const day = Intl.DateTimeFormat("en", { weekday: "long" }).format(new Date());
 

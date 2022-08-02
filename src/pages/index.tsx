@@ -14,6 +14,7 @@ import {
   getAnimeEpisodes,
   getAnimeVideos,
   getPopularAnime,
+  getSeasonalAnimeList,
   getTodayReleases,
   getUpcoming,
   searchAnimeByTitle,
@@ -29,6 +30,7 @@ const Index = () => {
   // if (!data) return "Loading...";
 
   // const { data, error } = getAnimeVideos("48895");
+  // const { data, error } = getSeasonalAnimeList("2022", "summer", 1);
 
   // if (data) console.log(data);
 
