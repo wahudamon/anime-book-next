@@ -1,60 +1,58 @@
-import { Link as ChakraLink, Text } from "@chakra-ui/react";
-
-import { Hero } from "../components/Hero";
-import { Container } from "../components/Container";
-import { Main } from "../components/Main";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { CTA } from "../components/CTA";
-import { Footer } from "../components/Footer";
-
-import useSWR from "swr";
+import Link from "next/link";
 import {
-  getAiringAnimes,
-  getAnimeCharacters,
-  getAnimeDetails,
-  getAnimeEpisodes,
-  getAnimeRecommendations,
-  getAnimeReviews,
-  getAnimeVideos,
-  getPopularAnime,
-  getSeasonalAnimeList,
-  getSeasonsList,
-  getTodayReleases,
-  getUpcoming,
-  searchAnimeByTitle,
-} from "../lib/queriesList";
+  Button,
+  Box,
+  Container,
+  Heading,
+  Icon,
+  Image,
+  List,
+  ListItem,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import Layout from "../components/layouts/Main";
+import Section from "../components/Section";
+import Paragraph from "../components/Paragraph";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
-const Index = () => {
-  // const { data, error } = useSWR(
-  //   "https://api.github.com/repos/vercel/swr",
-  //   fetcher
-  // );
-
-  // if (error) return "An error has occured.";
-  // if (!data) return "Loading...";
-
-  // const { data, error } = getAnimeReviews("16498");
-  // const { data, error } = getSeasonalAnimeList("2022", "summer", 1);
-  // const { data, error } = getAiringAnimes();
-
-  // if (data) console.log(data);
-
+export default function Index() {
   return (
-    <Container height="100vh">
-      <Hero />
-      {/* <Main>
-        <Text color="text">Subscribers {data.subscribers_count}</Text>
-        <Text color="text">Forks {data.forks_count}</Text>
-        <Text color="text">Stargazers {data.stargazers_count}</Text>
-      </Main> */}
+    <Layout router="/">
+      <Container>
+        <Box display={{ md: "flex" }}>
+          <Box flexGrow={1}>
+            <Heading as="h2" variant="page-title">
+              Afwa Bagas Wahuda
+            </Heading>
+            <p>Human, Software Engineer, Blogger</p>
+          </Box>
+        </Box>
 
-      <DarkModeSwitch />
-      <Footer>
-        <Text>Next ❤️ Chakra</Text>
-      </Footer>
-      <CTA />
-    </Container>
+        <Section delay="0.1s">
+          <Heading as="h3" variant="section-title">
+            About
+          </Heading>
+          <Paragraph>
+            I&apos;m a Frontend Web Engineer with 3+ years experiences based in
+            Indonesia. Eager to explore modern web technologies. Also, would be
+            defined as highly motivated, good communication, and fast learner.
+            Experienced in Javascript and it&apos;s framework like Vue and Nuxt.
+            Currently, i&apos;m learning and tinkering about React, Next.js and
+            Typescript by creating personal projects.
+          </Paragraph>
+          <Paragraph style={{ marginTop: "12px", fontStyle: "italic" }}>
+            Currently still looking for a job as a Frontend Engineer for
+            Fulltime Remote.
+          </Paragraph>
+          <Box textAlign="center" my={4}>
+            <Link href="/works">
+              <Button rightIcon={<ChevronRightIcon />} colorScheme="pink">
+                My Portfolio
+              </Button>
+            </Link>
+          </Box>
+        </Section>
+      </Container>
+    </Layout>
   );
-};
-
-export default Index;
+}
