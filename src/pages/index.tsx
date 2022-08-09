@@ -19,10 +19,8 @@ export default function Index() {
       <Container maxW="full">
         <Box display={{ md: "flex" }}>
           <Box flexGrow={1}>
-            <Heading as="h2" variant="page-title">
-              Anime Book
-            </Heading>
-            <p>All things about anime now in your hands.</p>
+            <Heading as="h2" variant="page-title"></Heading>
+            {/* <p>All things about anime now in your hands.</p> */}
           </Box>
         </Box>
 
