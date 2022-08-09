@@ -76,7 +76,7 @@ export default function Navbar(props) {
           </LinkItem>
         </Stack>
 
-        <Box>
+        <Box pt={1}>
           <Box
             mx={2}
             display={{ base: "inline-block", md: "none" }}
@@ -87,6 +87,7 @@ export default function Navbar(props) {
                 as={IconButton}
                 icon={<HamburgerIcon />}
                 variant="outline"
+                borderColor={useColorModeValue("silver", "grey")}
                 aria-label="Options"
               />
               <MenuList>
