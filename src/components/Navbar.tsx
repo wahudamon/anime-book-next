@@ -66,6 +66,7 @@ export default function Navbar(props) {
           alignItems="center"
           flexGrow={1}
           mt={{ base: 4, nmd: 0 }}
+          pt={2}
         >
           <LinkItem href="/anime" path={path}>
             Anime
