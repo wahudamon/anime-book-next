@@ -50,7 +50,7 @@ export default function Navbar(props) {
       <Container
         display="flex"
         p={2}
-        maxW="container.md"
+        maxW="full"
         flexWrap="wrap"
         justifyContent="space-between"
       >
