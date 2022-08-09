@@ -13,9 +13,9 @@ export const GridItemStyle = () => {
   />;
 };
 
-export const GridItem = ({ children, href, title, thumbnail }) => (
+export const GridItem = ({ children, id, title, thumbnail }) => (
   <Box w="100%" textAlign="center">
-    <Link href={href}>
+    <Link href={id}>
       <LinkBox cursor="pointer">
         <Image
           src={thumbnail}
@@ -24,7 +24,7 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
           placeholder="blur"
           loading="lazy"
         />
-        <LinkOverlay href={href} target="_blank">
+        <LinkOverlay href={id} target="_blank">
           <Text mt={2}>{title}</Text>
         </LinkOverlay>
         <Text fontSize={14}>{children}</Text>
