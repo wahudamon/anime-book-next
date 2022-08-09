@@ -50,7 +50,7 @@ export default function Navbar(props) {
       <Container
         display="flex"
         p={2}
-        maxW="full"
+        maxW="container.xl"
         flexWrap="wrap"
         justifyContent="space-between"
       >
@@ -75,9 +75,12 @@ export default function Navbar(props) {
           </LinkItem>
         </Stack>
 
-        <Box flex={1} alignItems="right">
-          <ThemeTogglerButton />
-          <Box ml={2} display={{ base: "inline-block", md: "none" }}>
+        <Box>
+          <Box
+            mx={2}
+            display={{ base: "inline-block", md: "none" }}
+            float="right"
+          >
             <Menu>
               <MenuButton
                 as={IconButton}
@@ -94,6 +97,9 @@ export default function Navbar(props) {
                 </NextLink>
               </MenuList>
             </Menu>
+          </Box>
+          <Box float="right">
+            <ThemeTogglerButton />
           </Box>
         </Box>
       </Container>
