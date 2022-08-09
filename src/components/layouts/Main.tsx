@@ -1,12 +1,6 @@
 import Head from "next/head";
 import { Box, Container } from "@chakra-ui/react";
 import Navbar from "../Navbar";
-// import { NextRouter } from "next/router";
-
-// type Props = {
-//   children: React.ReactNode;
-//   router: NextRouter;
-// };
 
 const Layout = ({ children, router }) => {
   return (

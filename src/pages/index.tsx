@@ -1,17 +1,8 @@
 import Link from "next/link";
-import {
-  Box,
-  Container,
-  Heading,
-  Icon,
-  Image,
-  List,
-  ListItem,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Container, Heading, SimpleGrid } from "@chakra-ui/react";
 import Layout from "../components/layouts/Main";
 import Section from "../components/Section";
-import Paragraph from "../components/Paragraph";
+import { GridItem } from "../components/GridItem";
 
 export default function Index() {
   return (
