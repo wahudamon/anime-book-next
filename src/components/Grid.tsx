@@ -12,9 +12,62 @@ export const Grid = ({ title, data, error }) => {
   if (error)
     return (
       <Container maxW="container.xl">
-        <Heading as="h2" fontSize={24} mt={8} mb={4}>
-          {title}
-        </Heading>
+        <Container
+          maxW="container.xl"
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Heading as="h3" fontSize={20} mt={8} mb={4}>
+            {title}
+          </Heading>
+          <Button
+            disabled
+            mt={3}
+            size="sm"
+            background="#F6DFEB"
+            color="blackAlpha.900"
+            _hover={{ background: "#F6DFEB", color: "blackAlpha.900" }}
+            _active={{ background: "#F6DFEB" }}
+          >
+            Show All
+          </Button>
+        </Container>
+
+        <Box textAlign="center">
+          <Heading as="h2">An error has occured.</Heading>
+        </Box>
+      </Container>
+    );
+
+  if (!data)
+    return (
+      <Container maxW="container.xl">
+        <Container
+          maxW="container.xl"
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Heading as="h3" fontSize={20} mt={8} mb={4}>
+            {title}
+          </Heading>
+          <Button
+            disabled
+            mt={3}
+            size="sm"
+            background="#F6DFEB"
+            color="blackAlpha.900"
+            _hover={{ background: "#F6DFEB", color: "blackAlpha.900" }}
+            _active={{ background: "#F6DFEB" }}
+          >
+            Show All
+          </Button>
+        </Container>
+
+        <Box textAlign="center">
+          <Heading as="h2">Loading...</Heading>
+        </Box>
       </Container>
     );
 
@@ -36,6 +89,7 @@ export const Grid = ({ title, data, error }) => {
             background="#F6DFEB"
             color="blackAlpha.900"
             _hover={{ background: "#E4BAD4", color: "whiteAlpha.900" }}
+            _active={{ background: "#F6DFEB", color: "whiteAlpha.900" }}
             onClick={changeShowAllValue}
           >
             Show All
