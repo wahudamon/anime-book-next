@@ -49,8 +49,8 @@ export function getTodayReleases() {
   const { data, error } = useSWR(`${apiUrl}/schedules/${day}`, fetcher);
 
   return {
-    data,
-    error,
+    todayDatas: data,
+    todayError: error,
   };
 }
 
