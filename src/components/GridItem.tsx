@@ -21,9 +21,9 @@ export const GridItem = ({ id, title, thumbnail }) => (
           color: white;
         }
 
-        .grid-item-overlay--blur {
+        .grid-item-overlay--primary {
           border-radius: 20px;
-          backdrop-filter: blur(15px);
+          background-color: #e4bad4;
         }
 
         .grid-item-overlay > * {
@@ -51,7 +51,7 @@ export const GridItem = ({ id, title, thumbnail }) => (
           fit="cover"
         />
         <LinkOverlay
-          className="grid-item-overlay grid-item-overlay--blur"
+          className="grid-item-overlay grid-item-overlay--primary"
           href={id}
           target="_blank"
           position="absolute"
