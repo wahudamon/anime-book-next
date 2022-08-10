@@ -1,7 +1,7 @@
 import { Container } from "@chakra-ui/react";
 import Layout from "../components/layouts/Main";
 
-import { getUpcoming } from "../lib/queriesList";
+import { getUpcoming } from "../lib/api";
 import { Grid } from "../components/Grid";
 
 export default function Index() {
