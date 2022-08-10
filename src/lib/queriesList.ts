@@ -8,8 +8,8 @@ export function getUpcoming() {
   );
 
   return {
-    data,
-    error,
+    upcomingDatas: data,
+    upcomingError: error,
   };
 }
 
