@@ -8,23 +8,12 @@ export default function Index() {
   const { upcomingDatas, upcomingError } = getUpcoming();
   const { todayDatas, todayError } = getTodayReleases();
 
-  if (upcomingError) return "An error has occured.";
-
-  if (upcomingDatas)
-    return (
-      <Layout router="/">
-        <Container maxW="container.xl">
-          <Grid
-            title="Today's Releases"
-            data={todayDatas.data}
-            error={todayError}
-          />
-          <Grid
-            title="Upcoming"
-            data={upcomingDatas.data}
-            error={upcomingError}
-          />
-        </Container>
-      </Layout>
-    );
+  return (
+    <Layout router="/">
+      <Container maxW="container.xl">
+        <Grid title="Today's Releases" data={todayDatas} error={todayError} />
+        <Grid title="Upcoming" data={upcomingDatas} error={upcomingError} />
+      </Container>
+    </Layout>
+  );
 }

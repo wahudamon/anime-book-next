@@ -98,28 +98,28 @@ export const Grid = ({ title, data, error }) => {
 
         <SimpleGrid columns={[1, 3, 5]} gap={8}>
           {showAll
-            ? data.map((data, index) => {
-                return (
-                  <Section key={index}>
-                    <GridItem
-                      id={data.title}
-                      title={data.title}
-                      thumbnail={data.images.webp.image_url}
-                    />
-                  </Section>
-                );
-              })
-            : data.slice(0, 5).map((data, index) => {
-                return (
-                  <Section key={index}>
-                    <GridItem
-                      id={data.title}
-                      title={data.title}
-                      thumbnail={data.images.webp.image_url}
-                    />
-                  </Section>
-                );
-              })}
+            ? data.data.map((data, index) => {
+              return (
+                <Section key={index}>
+                  <GridItem
+                    id={data.title}
+                    title={data.title}
+                    thumbnail={data.images.webp.image_url}
+                  />
+                </Section>
+              );
+            })
+            : data.data.slice(0, 5).map((data, index) => {
+              return (
+                <Section key={index}>
+                  <GridItem
+                    id={data.title}
+                    title={data.title}
+                    thumbnail={data.images.webp.image_url}
+                  />
+                </Section>
+              );
+            })}
         </SimpleGrid>
       </Container>
     );
