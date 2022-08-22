@@ -98,7 +98,7 @@ export const Grid = ({ title, data, error }) => {
 
         <SimpleGrid columns={[1, 3, 5]} gap={8}>
           {showAll
-            ? data.data.map((data, index) => {
+            ? data.data.map((data: any, index: number) => {
               return (
                 <Section key={index}>
                   <GridItem
@@ -109,7 +109,7 @@ export const Grid = ({ title, data, error }) => {
                 </Section>
               );
             })
-            : data.data.slice(0, 5).map((data, index) => {
+            : data.data.slice(0, 5).map((data: any, index: number) => {
               return (
                 <Section key={index}>
                   <GridItem
