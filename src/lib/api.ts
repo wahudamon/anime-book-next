@@ -60,7 +60,7 @@ export function getPopularAnime() {
   };
 }
 
-export function searchAnimeByTitle(title) {
+export function searchAnimeByTitle(title: string) {
   const { data, error } = useSWR(
     `${apiUrl}/anime?q=${title.toLowerCase()}&orderBy=title`,
     fetcher
@@ -72,16 +72,16 @@ export function searchAnimeByTitle(title) {
   };
 }
 
-export function getAnimeDetails(id) {
+export function getAnimeDetails(id: string) {
   const { data, error } = useSWR(`${apiUrl}/anime/${id}/full`, fetcher);
 
   return {
-    data,
-    error,
+    animeDetailsData: data,
+    animeDetailsError: error,
   };
 }
 
-export function getAnimeCharacters(id) {
+export function getAnimeCharacters(id: string) {
   const { data, error } = useSWR(`${apiUrl}/anime/${id}/characters`, fetcher);
 
   return {
@@ -90,7 +90,7 @@ export function getAnimeCharacters(id) {
   };
 }
 
-export function getAnimeEpisodes(id) {
+export function getAnimeEpisodes(id: string) {
   const { data, error } = useSWR(`${apiUrl}/anime/${id}/episodes`, fetcher);
 
   return {
@@ -99,7 +99,7 @@ export function getAnimeEpisodes(id) {
   };
 }
 
-export function getAnimeVideos(id) {
+export function getAnimeVideos(id: string) {
   const { data, error } = useSWR(`${apiUrl}/anime/${id}/videos`, fetcher);
 
   return {
@@ -108,7 +108,7 @@ export function getAnimeVideos(id) {
   };
 }
 
-export function getAnimeRecommendations(id) {
+export function getAnimeRecommendations(id: string) {
   const { data, error } = useSWR(
     `${apiUrl}/anime/${id}/recommendations`,
     fetcher
@@ -120,7 +120,7 @@ export function getAnimeRecommendations(id) {
   };
 }
 
-export function getAnimeReviews(id) {
+export function getAnimeReviews(id: string) {
   const { data, error } = useSWR(`${apiUrl}/anime/${id}/reviews`, fetcher);
 
   return {
