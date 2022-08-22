@@ -2,10 +2,7 @@ import useSWR from "swr";
 import { apiUrl, fetcher } from "./constants";
 
 export function getUpcoming() {
-  const { data, error } = useSWR(
-    `${apiUrl}/seasons/upcoming?page=1&sfw`,
-    fetcher
-  );
+  const { data, error } = useSWR(`${apiUrl}/seasons/upcoming?sfw`, fetcher);
 
   return {
     upcomingDatas: data,
@@ -55,7 +52,7 @@ export function getTodayReleases() {
 }
 
 export function getPopularAnime() {
-  const { data, error } = useSWR(`${apiUrl}top/anime?page=1`, fetcher);
+  const { data, error } = useSWR(`${apiUrl}top/anime`, fetcher);
 
   return {
     data,

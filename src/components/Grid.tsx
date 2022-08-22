@@ -92,7 +92,7 @@ export const Grid = ({ title, data, error }) => {
             _active={{ background: "#F6DFEB", color: "whiteAlpha.900" }}
             onClick={changeShowAllValue}
           >
-            Show All
+            {showAll ? "Show Less" : "Show All"}
           </Button>
         </Container>
 
