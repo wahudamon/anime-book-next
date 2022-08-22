@@ -41,7 +41,7 @@ export const GridItem = ({ id, title, thumbnail }) => {
           }
         `}
       />
-      <Link href={id}>
+      <Link as={`/detail/${id}`} href={`/detail/${id}`}>
         <LinkBox cursor="pointer" position="relative">
           <Image
             className="grid-item-thumbnail"
