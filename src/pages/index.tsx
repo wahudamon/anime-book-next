@@ -9,7 +9,7 @@ export default function Index() {
   const { todayDatas, todayError } = getTodayReleases();
 
   return (
-    <Layout router="/">
+    <Layout title="Home" router="/">
       <Container maxW="container.xl">
         <Grid title="Today's Releases" data={todayDatas} error={todayError} />
         <Grid title="Upcoming" data={upcomingDatas} error={upcomingError} />
