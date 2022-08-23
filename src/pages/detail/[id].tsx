@@ -31,7 +31,7 @@ export default function AnimeDetail() {
   }
 
   if (animeDetailsData) {
-    // console.log(animeDetailsData.data);
+    console.log(animeDetailsData.data);
     return (
       <Layout title={animeDetailsData.data.title} router="/">
         <Box position="fixed" top={0} left={0} w="100%" zIndex={5}>
@@ -55,11 +55,39 @@ export default function AnimeDetail() {
           left={0}
           top={400}
           maxW="full"
+          h="container.md"
           zIndex={15}
-          background="pink.700"
-          color="whiteAlpha.900"
+          background="#F6DFEB"
+          display="flex"
+          gap={2}
         >
-          <p>{animeDetailsData.data.title}</p>
+          <Box position="absolute" left={5} top={-20}>
+            <Image
+              src={animeDetailsData.data.images.jpg.image_url}
+              w="200px"
+              h="300px"
+              borderRadius="14px"
+            />
+          </Box>
+          <Box ml="18%" display="flex">
+            {animeDetailsData.data.title ===
+              animeDetailsData.data.title_english ? (
+              <Box>
+                <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                  {animeDetailsData.data.title}
+                </h2>
+              </Box>
+            ) : (
+              <Box>
+                <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                  {animeDetailsData.data.title_english}
+                </h2>
+                <h4 style={{ fontSize: "18px", fontStyle: "italic" }}>
+                  {animeDetailsData.data.title}
+                </h4>
+              </Box>
+            )}
+          </Box>
         </Container>
       </Layout>
     );
