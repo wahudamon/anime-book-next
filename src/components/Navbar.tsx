@@ -44,7 +44,7 @@ export default function Navbar(props) {
       w="100%"
       bg={useColorModeValue("#F6DFEB", "#20202380")}
       style={{ backdropFilter: "blur(10px)" }}
-      zIndex={1}
+      zIndex={15}
       {...props}
     >
       <Container
