@@ -103,8 +103,10 @@ export const Grid = ({ title, data, error }) => {
                 <Section key={index}>
                   <GridItem
                     id={`${data.mal_id}`}
-                    title={data.title}
-                    thumbnail={data.images.webp.image_url}
+                    title={
+                      data.title_english ? data.title_english : data.title
+                    }
+                    thumbnail={data.images.jpg.image_url}
                   />
                 </Section>
               );
@@ -114,8 +116,10 @@ export const Grid = ({ title, data, error }) => {
                 <Section key={index}>
                   <GridItem
                     id={`${data.mal_id}`}
-                    title={data.title}
-                    thumbnail={data.images.webp.image_url}
+                    title={
+                      data.title_english ? data.title_english : data.title
+                    }
+                    thumbnail={data.images.jpg.image_url}
                   />
                 </Section>
               );
