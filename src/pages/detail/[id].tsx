@@ -7,16 +7,26 @@ export default function AnimeDetail() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { animeDetailsData, animeDetailsError } = getAnimeDetails(
-    id.toString()
-  );
+  const { animeDetailsData } = getAnimeDetails(id.toString());
 
-  if (animeDetailsError) {
-    <Layout title="Anime Details" router="/">
-      <Container mt={8} maxW="container.xl">
-        <p>An error has occured.</p>
-      </Container>
-    </Layout>;
+  console.log(animeDetailsData);
+
+  if (animeDetailsData && animeDetailsData.error) {
+    return (
+      <Layout title="Anime Details" router="/">
+        <Container mt={8} maxW="container.xl">
+          <h2
+            style={{
+              fontWeight: "bold",
+              fontSize: "24px",
+              textAlign: "center",
+            }}
+          >
+            An error has occured.
+          </h2>
+        </Container>
+      </Layout>
+    );
   }
 
   // add skeleton loader for good user experience
@@ -24,13 +34,21 @@ export default function AnimeDetail() {
     return (
       <Layout title="Anime Details" router="/">
         <Container mt={8} maxW="container.xl">
-          <p>Getting data, please wait...</p>
+          <h2
+            style={{
+              fontWeight: "bold",
+              fontSize: "24px",
+              textAlign: "center",
+            }}
+          >
+            Getting data, please wait...
+          </h2>
         </Container>
       </Layout>
     );
   }
 
-  if (animeDetailsData) {
+  if (animeDetailsData && !animeDetailsData.error) {
     console.log(animeDetailsData.data);
     return (
       <Layout title={animeDetailsData.data.title} router="/">
@@ -66,6 +84,7 @@ export default function AnimeDetail() {
               src={animeDetailsData.data.images.jpg.image_url}
               w="200px"
               h="300px"
+              fit="cover"
               borderRadius="14px"
             />
           </Box>

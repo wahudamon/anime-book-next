@@ -73,11 +73,10 @@ export function searchAnimeByTitle(title: string) {
 }
 
 export function getAnimeDetails(id: string) {
-  const { data, error } = useSWR(`${apiUrl}/anime/${id}/full`, fetcher);
+  const { data } = useSWR(`${apiUrl}/anime/${id}/full`, fetcher);
 
   return {
     animeDetailsData: data,
-    animeDetailsError: error,
   };
 }
 
