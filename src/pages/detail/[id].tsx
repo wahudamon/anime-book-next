@@ -87,37 +87,64 @@ export default function AnimeDetail() {
           h="container.md"
           zIndex={15}
           background="#F6DFEB"
-          display="flex"
-          gap={2}
         >
-          <Box mt={-20}>
-            <Image
-              src={animeDetailsData.data.images.jpg.image_url}
-              w="200px"
-              h="300px"
-              fit="cover"
-              borderRadius="14px"
-            />
-          </Box>
-          <Box display="flex">
-            {!animeDetailsData.data.title_english ||
+          <Box display="flex" gap={2}>
+            <Box mt={-20}>
+              <Image
+                src={animeDetailsData.data.images.jpg.image_url}
+                w="200px"
+                h="300px"
+                fit="cover"
+                borderRadius="14px"
+              />
+            </Box>
+            <Box display="flex" gap={2}>
+              {!animeDetailsData.data.title_english ||
               animeDetailsData.data.title ===
-              animeDetailsData.data.title_english ? (
-              <Box>
-                <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                  {animeDetailsData.data.title}
-                </h2>
-              </Box>
-            ) : (
-              <Box>
-                <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                  {animeDetailsData.data.title_english}
-                </h2>
-                <h4 style={{ fontSize: "18px", fontStyle: "italic" }}>
-                  {animeDetailsData.data.title}
-                </h4>
-              </Box>
-            )}
+                animeDetailsData.data.title_english ? (
+                <Box>
+                  <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                    {animeDetailsData.data.title}
+                  </h2>
+                </Box>
+              ) : (
+                <Box>
+                  <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                    {animeDetailsData.data.title_english}
+                  </h2>
+                  <h4 style={{ fontSize: "18px", fontStyle: "italic" }}>
+                    {animeDetailsData.data.title}
+                  </h4>
+                </Box>
+              )}
+            </Box>
+          </Box>
+          <Box
+            mt={4}
+            maxW="fit-content"
+            maxH="fit-content"
+            background="orange.200"
+            borderRadius="14px"
+          >
+            <Box
+              px={4}
+              py={2}
+              display="flex"
+              flexDirection="column"
+              textAlign="center"
+            >
+              <p style={{ fontWeight: "bold", fontSize: "18px" }}>SCORE</p>
+              <p style={{ fontWeight: "bold", fontSize: "32px" }}>
+                {animeDetailsData.data.score
+                  ? animeDetailsData.data.score
+                  : "0"}
+              </p>
+              <p style={{ fontSize: "14px" }}>
+                {animeDetailsData.data.scored_by
+                  ? `${animeDetailsData.data.scored_by} Users`
+                  : "0 Users"}
+              </p>
+            </Box>
           </Box>
         </Container>
       </Layout>
