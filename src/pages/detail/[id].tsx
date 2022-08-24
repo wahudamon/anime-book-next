@@ -1,6 +1,7 @@
 import { Box, Container, Image, Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Layout from "../../components/layouts/Main";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { getAnimeDetails } from "../../lib/api";
 
 export default function AnimeDetail() {
@@ -32,22 +33,7 @@ export default function AnimeDetail() {
   if (!animeDetailsData) {
     return (
       <Layout title="Anime Details" router="/">
-        <Container mt={8} maxW="container.xl">
-          <Box
-            pt={52}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.500"
-              size="xl"
-            />
-          </Box>
-        </Container>
+        <LoadingSpinner />
       </Layout>
     );
   }
