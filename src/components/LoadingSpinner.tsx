@@ -7,7 +7,7 @@ export const LoadingSpinner = () => (
         thickness="4px"
         speed="0.65s"
         emptyColor="gray.200"
-        color="blue.500"
+        color="#E4BAD4"
         size="xl"
       />
     </Box>

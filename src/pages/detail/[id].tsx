@@ -1,4 +1,4 @@
-import { Box, Container, Image, Spinner } from "@chakra-ui/react";
+import { Box, Container, Image } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Layout from "../../components/layouts/Main";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
