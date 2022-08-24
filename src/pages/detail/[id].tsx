@@ -1,4 +1,4 @@
-import { Box, Container, Image } from "@chakra-ui/react";
+import { Box, Container, Image, Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Layout from "../../components/layouts/Main";
 import { getAnimeDetails } from "../../lib/api";
@@ -29,20 +29,24 @@ export default function AnimeDetail() {
     );
   }
 
-  // add skeleton loader for good user experience
   if (!animeDetailsData) {
     return (
       <Layout title="Anime Details" router="/">
         <Container mt={8} maxW="container.xl">
-          <h2
-            style={{
-              fontWeight: "bold",
-              fontSize: "24px",
-              textAlign: "center",
-            }}
+          <Box
+            pt={52}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
           >
-            Getting data, please wait...
-          </h2>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          </Box>
         </Container>
       </Layout>
     );
@@ -53,11 +57,16 @@ export default function AnimeDetail() {
     return (
       <Layout title={animeDetailsData.data.title} router="/">
         <Box position="fixed" top={0} left={0} w="100%" zIndex={5}>
-          <Image
-            src={animeDetailsData.data.trailer.images.maximum_image_url}
-            width="full"
-            height="xl"
-          />
+          {animeDetailsData.data.trailer.images.maximum_image_url ? (
+            <Image
+              src={animeDetailsData.data.trailer.images.maximum_image_url}
+              width="full"
+              height="xl"
+            />
+          ) : (
+            <Box></Box>
+          )}
+
           <Box
             position="absolute"
             top={0}
@@ -65,8 +74,24 @@ export default function AnimeDetail() {
             w="100%"
             h="100%"
             background="#F6DFEB"
-            opacity={0.6}
-          ></Box>
+            opacity={
+              animeDetailsData.data.trailer.images.maximum_image_url ? 0.6 : 1
+            }
+          >
+            {animeDetailsData.data.trailer.images.maximum_image_url ? (
+              <div></div>
+            ) : (
+              <h2
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "24px",
+                  textAlign: "center",
+                }}
+              >
+                No Image Available.
+              </h2>
+            )}
+          </Box>
         </Box>
         <Container
           position="fixed"
@@ -90,7 +115,7 @@ export default function AnimeDetail() {
           </Box>
           <Box ml="18%" display="flex">
             {animeDetailsData.data.title ===
-              animeDetailsData.data.title_english ? (
+            animeDetailsData.data.title_english ? (
               <Box>
                 <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
                   {animeDetailsData.data.title}
