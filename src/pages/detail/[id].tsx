@@ -104,7 +104,7 @@ export default function AnimeDetail() {
           display="flex"
           gap={2}
         >
-          <Box position="absolute" left={5} top={-20}>
+          <Box mt={-20}>
             <Image
               src={animeDetailsData.data.images.jpg.image_url}
               w="200px"
@@ -113,9 +113,9 @@ export default function AnimeDetail() {
               borderRadius="14px"
             />
           </Box>
-          <Box ml="18%" display="flex">
+          <Box display="flex">
             {animeDetailsData.data.title ===
-            animeDetailsData.data.title_english ? (
+              animeDetailsData.data.title_english ? (
               <Box>
                 <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
                   {animeDetailsData.data.title}
