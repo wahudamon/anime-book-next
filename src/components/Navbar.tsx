@@ -100,9 +100,9 @@ export default function Navbar(props) {
               </MenuList>
             </Menu>
           </Box>
-          <Box float="right">
+          {/* <Box float="right">
             <ThemeTogglerButton />
-          </Box>
+            </Box> */}
         </Box>
       </Container>
     </Box>
