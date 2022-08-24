@@ -10,7 +10,7 @@ export default function AnimeDetail() {
 
   const { animeDetailsData } = getAnimeDetails(id.toString());
 
-  console.log(animeDetailsData);
+  // console.log(animeDetailsData);
 
   if (animeDetailsData && animeDetailsData.error) {
     return (
@@ -48,6 +48,7 @@ export default function AnimeDetail() {
               src={animeDetailsData.data.trailer.images.maximum_image_url}
               width="full"
               height="xl"
+              filter="blur(4px)"
             />
           ) : (
             <Box></Box>
@@ -88,8 +89,8 @@ export default function AnimeDetail() {
           zIndex={15}
           background="#F6DFEB"
         >
-          <Box display="flex" gap={2}>
-            <Box mt={-20}>
+          <Box display="grid" gridTemplateColumns="200px auto auto" gap={6}>
+            <Box mt={-20} maxW="fit-content">
               <Image
                 src={animeDetailsData.data.images.jpg.image_url}
                 w="200px"
@@ -98,25 +99,53 @@ export default function AnimeDetail() {
                 borderRadius="14px"
               />
             </Box>
-            <Box display="flex" gap={2}>
+            <Box display="flex" flexDirection="column">
               {!animeDetailsData.data.title_english ||
               animeDetailsData.data.title ===
                 animeDetailsData.data.title_english ? (
-                <Box>
+                <Box mt={-10}>
                   <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
                     {animeDetailsData.data.title}
                   </h2>
                 </Box>
               ) : (
-                <Box>
+                <Box mt={-10}>
                   <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                    {animeDetailsData.data.title_english}
+                    {animeDetailsData.data.title_english} <span></span>
                   </h2>
-                  <h4 style={{ fontSize: "18px", fontStyle: "italic" }}>
+                  <h4
+                    style={{
+                      marginTop: "4px",
+                      fontSize: "18px",
+                      fontStyle: "italic",
+                    }}
+                  >
                     {animeDetailsData.data.title}
                   </h4>
                 </Box>
               )}
+              <Box>
+                <h3
+                  style={{
+                    marginTop: "8px",
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                  }}
+                >
+                  Synopsis
+                </h3>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    textAlign: "justify",
+                    fontWeight: "400",
+                  }}
+                >
+                  {animeDetailsData.data.synopsis
+                    ? animeDetailsData.data.synopsis
+                    : "No synopsis found."}
+                </p>
+              </Box>
             </Box>
           </Box>
           <Box
@@ -137,7 +166,7 @@ export default function AnimeDetail() {
               <p style={{ fontWeight: "bold", fontSize: "32px" }}>
                 {animeDetailsData.data.score
                   ? animeDetailsData.data.score
-                  : "0"}
+                  : "NA"}
               </p>
               <p style={{ fontSize: "14px" }}>
                 {animeDetailsData.data.scored_by
