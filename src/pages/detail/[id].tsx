@@ -114,7 +114,8 @@ export default function AnimeDetail() {
             />
           </Box>
           <Box display="flex">
-            {animeDetailsData.data.title ===
+            {!animeDetailsData.data.title_english ||
+              animeDetailsData.data.title ===
               animeDetailsData.data.title_english ? (
               <Box>
                 <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
