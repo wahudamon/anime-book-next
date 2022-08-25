@@ -39,7 +39,7 @@ export default function AnimeDetail() {
   }
 
   if (animeDetailsData && !animeDetailsData.error) {
-    console.log(animeDetailsData.data);
+    // console.log(animeDetailsData.data);
     return (
       <Layout title={animeDetailsData.data.title} router="/">
         <Box position="fixed" top={0} left={0} w="100%" zIndex={5}>
@@ -84,8 +84,9 @@ export default function AnimeDetail() {
           position="fixed"
           left={0}
           top={400}
+          pb={4}
           maxW="full"
-          h="container.md"
+          maxH="full"
           zIndex={15}
           background="#F6DFEB"
         >
