@@ -10,7 +10,7 @@ export default function AnimeDetail() {
 
   const { animeDetailsData } = getAnimeDetails(id.toString());
 
-  // console.log(animeDetailsData);
+  console.log(animeDetailsData);
 
   if (animeDetailsData && animeDetailsData.error) {
     return (
@@ -101,42 +101,44 @@ export default function AnimeDetail() {
               />
             </Box>
             <Box display="flex" flexDirection="column">
-              {!animeDetailsData.data.title_english ||
-              animeDetailsData.data.title ===
-                animeDetailsData.data.title_english ? (
-                <Box mt={-10}>
-                  <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                    {animeDetailsData.data.title}
-                  </h2>
-                </Box>
-              ) : (
-                <Box mt={-10}>
-                  <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                    {animeDetailsData.data.title_english} <span></span>
-                  </h2>
-                  <h4
+              <Box mt={-10}>
+                <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                  {animeDetailsData.data.title}
+                </h2>
+              </Box>
+              <Box>
+                <Box
+                  mt="8px"
+                  display="flex"
+                  gap={2}
+                  alignItems="flex-end"
+                  justifyContent="space-between"
+                  maxW="container.xl"
+                >
+                  <h3
                     style={{
-                      marginTop: "4px",
-                      fontSize: "18px",
-                      fontStyle: "italic",
+                      fontWeight: "bold",
+                      fontSize: "20px",
                     }}
                   >
-                    {animeDetailsData.data.title}
-                  </h4>
+                    Synopsis
+                  </h3>
+                  <Box
+                    display="flex"
+                    gap={4}
+                    style={{ fontWeight: "bold", fontSize: "20px" }}
+                  >
+                    <h3>Status: {animeDetailsData.data.status}</h3>
+                    <h3>Rank: {`#${animeDetailsData.data.rank}`}</h3>
+                    <h3>
+                      Popularity: {`#${animeDetailsData.data.popularity}`}
+                    </h3>
+                  </Box>
                 </Box>
-              )}
-              <Box>
-                <h3
-                  style={{
-                    marginTop: "8px",
-                    fontWeight: "bold",
-                    fontSize: "20px",
-                  }}
-                >
-                  Synopsis
-                </h3>
                 <p
                   style={{
+                    marginTop: "12px",
+                    float: "left",
                     fontSize: "14px",
                     textAlign: "justify",
                     fontWeight: "400",
