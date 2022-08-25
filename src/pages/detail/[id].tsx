@@ -90,12 +90,12 @@ export default function AnimeDetail() {
           zIndex={15}
           background="#F6DFEB"
         >
-          <Box display="grid" gridTemplateColumns="200px auto auto" gap={6}>
+          <Box display="grid" gridTemplateColumns="300px auto auto" gap={6}>
             <Box mt={-20} maxW="fit-content">
               <Image
                 src={animeDetailsData.data.images.jpg.image_url}
-                w="200px"
-                h="300px"
+                w="300px"
+                h="400px"
                 fit="cover"
                 borderRadius="14px"
               />
@@ -128,10 +128,23 @@ export default function AnimeDetail() {
                     gap={4}
                     style={{ fontWeight: "bold", fontSize: "20px" }}
                   >
-                    <h3>Status: {animeDetailsData.data.status}</h3>
-                    <h3>Rank: {`#${animeDetailsData.data.rank}`}</h3>
                     <h3>
-                      Popularity: {`#${animeDetailsData.data.popularity}`}
+                      Status:{" "}
+                      {animeDetailsData.data.status
+                        ? animeDetailsData.data.status
+                        : "NA"}
+                    </h3>
+                    <h3>
+                      Rank:{" "}
+                      {animeDetailsData.data.rank
+                        ? `#${animeDetailsData.data.rank}`
+                        : "NA"}
+                    </h3>
+                    <h3>
+                      Popularity:{" "}
+                      {animeDetailsData.data.popularity
+                        ? `#${animeDetailsData.data.popularity}`
+                        : "NA"}
                     </h3>
                   </Box>
                 </Box>
