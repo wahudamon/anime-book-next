@@ -65,7 +65,7 @@ export const GridItem = ({ id, title, thumbnail }) => {
             transition="opacity 0.25s"
           >
             <Text fontWeight="bold" colorScheme="blackAlpha" mt={2}>
-              {title}
+              {title.length > 60 ? `${title.slice(0, 60)}...` : title}
             </Text>
           </LinkOverlay>
         </LinkBox>

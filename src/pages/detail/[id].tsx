@@ -103,7 +103,11 @@ export default function AnimeDetail() {
             <Box display="flex" flexDirection="column">
               <Box mt={-10}>
                 <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                  {animeDetailsData.data.title}
+                  {animeDetailsData.data.title
+                    ? animeDetailsData.data.title.length > 60
+                      ? `${animeDetailsData.data.title.slice(0, 60)}...`
+                      : animeDetailsData.data.title
+                    : "NA"}
                 </h2>
               </Box>
               <Box>
