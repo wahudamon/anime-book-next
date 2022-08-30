@@ -76,7 +76,7 @@ export function getAnimeDetails(id: string) {
   const { data } = useSWR(`${apiUrl}/anime/${id}/full`, fetcher);
 
   return {
-    animeDetailsData: data,
+    data,
   };
 }
 
