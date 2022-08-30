@@ -1,41 +1,28 @@
-import { Link as ChakraLink, Text } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
+import Layout from "../components/layouts/Main";
 
-import { Hero } from "../components/Hero";
-import { Container } from "../components/Container";
-import { Main } from "../components/Main";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { CTA } from "../components/CTA";
-import { Footer } from "../components/Footer";
+import { getTodayReleases, getUpcoming } from "../lib/api";
+import { Grid } from "../components/Grid";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
-import useSWR from "swr";
+export default function Index() {
+  const { upcomingDatas, upcomingError } = getUpcoming();
+  const { todayDatas, todayError } = getTodayReleases();
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
-const Index = () => {
-  const { data, error } = useSWR(
-    "https://api.github.com/repos/vercel/swr",
-    fetcher
-  );
-
-  if (error) return "An error has occured.";
-  if (!data) return "Loading...";
+  if (!upcomingDatas || !todayDatas) {
+    return (
+      <Layout title="Home" router="/">
+        <LoadingSpinner />
+      </Layout>
+    );
+  }
 
   return (
-    <Container height="100vh">
-      <Hero />
-      <Main>
-        <Text color="text">Subscribers {data.subscribers_count}</Text>
-        <Text color="text">Forks {data.forks_count}</Text>
-        <Text color="text">Stargazers {data.stargazers_count}</Text>
-      </Main>
-
-      <DarkModeSwitch />
-      <Footer>
-        <Text>Next ❤️ Chakra</Text>
-      </Footer>
-      <CTA />
-    </Container>
+    <Layout title="Home" router="/">
+      <Container maxW="container.xl">
+        <Grid title="Today's Releases" data={todayDatas} error={todayError} />
+        <Grid title="Upcoming" data={upcomingDatas} error={upcomingError} />
+      </Container>
+    </Layout>
   );
-};
-
-export default Index;
+}
