@@ -49,7 +49,7 @@ export default function AnimeDetail() {
                 <Image
                   src={animeDetailsData.data.trailer.images.maximum_image_url}
                   width="full"
-                  height="xl"
+                  height="md"
                   filter="blur(4px)"
                 />
               ) : (
@@ -89,6 +89,7 @@ export default function AnimeDetail() {
               left={0}
               marginX={0}
               paddingX={0}
+              pl={4}
               pb={4}
               maxW="full"
               h="full"
