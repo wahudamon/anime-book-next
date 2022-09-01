@@ -6,7 +6,7 @@ const Layout = ({ title, children, router }) => {
   const titleText = `${title} - Anime Book`;
 
   return (
-    <Box as="main" pb={8}>
+    <Box as="main">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{titleText}</title>
