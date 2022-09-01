@@ -14,7 +14,7 @@ const Layout = ({ title, children, router }) => {
 
       <Navbar path={router.asPath} />
 
-      <Container maxW="100%" pt={14}>
+      <Container paddingX={0} maxW="100%" pt={14}>
         {children}
       </Container>
     </Box>
