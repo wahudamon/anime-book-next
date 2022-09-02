@@ -154,19 +154,19 @@ export default function AnimeDetail() {
                         style={{ fontWeight: "bold", fontSize: "20px" }}
                       >
                         <h3>
-                          Status:{" "}
+                          Status:&nbsp;
                           {animeDetailsData.data.status
                             ? animeDetailsData.data.status
                             : "NA"}
                         </h3>
                         <h3>
-                          Rank:{" "}
+                          Rank:&nbsp;
                           {animeDetailsData.data.rank
                             ? `#${animeDetailsData.data.rank}`
                             : "NA"}
                         </h3>
                         <h3>
-                          Popularity:{" "}
+                          Popularity:&nbsp;
                           {animeDetailsData.data.popularity
                             ? `#${animeDetailsData.data.popularity}`
                             : "NA"}
