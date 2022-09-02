@@ -40,20 +40,23 @@ export default function AnimeDetail() {
     }
 
     if (animeDetailsData && !animeDetailsData.error) {
+      const animeTitle = animeDetailsData.data.title.toString();
+      const animeTitleEnglish = animeDetailsData.data.title_english?.toString();
+
       // console.log(animeDetailsData.data);
       return (
         <Layout title={animeDetailsData.data.title} router="/">
-          <Container h="800px">
-            <Box position="fixed" top={0} left={0} w="100%" zIndex={5}>
+          <Container marginX={0} p={0} maxW="full">
+            <Box position="relative" top={2} zIndex={5} w="full">
               {animeDetailsData.data.trailer.images.maximum_image_url ? (
                 <Image
                   src={animeDetailsData.data.trailer.images.maximum_image_url}
-                  width="full"
-                  height="xl"
+                  w="full"
+                  h="lg"
                   filter="blur(4px)"
                 />
               ) : (
-                <Box></Box>
+                <Box w="full" h="md"></Box>
               )}
 
               <Box
@@ -62,6 +65,9 @@ export default function AnimeDetail() {
                 left={0}
                 w="100%"
                 h="100%"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
                 background="#F6DFEB"
                 opacity={
                   animeDetailsData.data.trailer.images.maximum_image_url
@@ -85,9 +91,11 @@ export default function AnimeDetail() {
               </Box>
             </Box>
             <Container
-              position="fixed"
+              position="relative"
               left={0}
-              top={400}
+              marginX={0}
+              paddingX={0}
+              pl={4}
               pb={4}
               maxW="full"
               h="full"
@@ -105,14 +113,27 @@ export default function AnimeDetail() {
                   />
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <Box mt={-10}>
-                    <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                      {animeDetailsData.data.title
-                        ? animeDetailsData.data.title.length > 60
-                          ? `${animeDetailsData.data.title.slice(0, 60)}...`
-                          : animeDetailsData.data.title
-                        : "NA"}
-                    </h2>
+                  <Box mt={animeTitleEnglish ? -16 : -10}>
+                    {animeTitle && animeTitleEnglish ? (
+                      <div>
+                        <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                          {animeTitleEnglish.length > 60
+                            ? `${animeTitleEnglish.slice(0, 60)}...`
+                            : animeTitleEnglish}
+                        </h2>
+                        <p style={{ fontStyle: "italic" }}>
+                          {animeTitle.length > 60
+                            ? `${animeTitle.slice(0, 60)}...`
+                            : animeTitle}
+                        </p>
+                      </div>
+                    ) : (
+                      <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                        {animeTitle.length > 60
+                          ? `${animeTitle.slice(0, 60)}...`
+                          : animeTitle}
+                      </h2>
+                    )}
                   </Box>
                   <Box>
                     <Box
@@ -121,7 +142,7 @@ export default function AnimeDetail() {
                       gap={2}
                       alignItems="flex-end"
                       justifyContent="space-between"
-                      maxW="container.xl"
+                      width="container.lg"
                     >
                       <h3
                         style={{
@@ -137,19 +158,19 @@ export default function AnimeDetail() {
                         style={{ fontWeight: "bold", fontSize: "20px" }}
                       >
                         <h3>
-                          Status:{" "}
+                          Status:&nbsp;
                           {animeDetailsData.data.status
                             ? animeDetailsData.data.status
                             : "NA"}
                         </h3>
                         <h3>
-                          Rank:{" "}
+                          Rank:&nbsp;
                           {animeDetailsData.data.rank
                             ? `#${animeDetailsData.data.rank}`
                             : "NA"}
                         </h3>
                         <h3>
-                          Popularity:{" "}
+                          Popularity:&nbsp;
                           {animeDetailsData.data.popularity
                             ? `#${animeDetailsData.data.popularity}`
                             : "NA"}
@@ -172,33 +193,35 @@ export default function AnimeDetail() {
                   </Box>
                 </Box>
               </Box>
-              {/* <Box
-              mt={4}
-              maxW="fit-content"
-              maxH="fit-content"
-              background="orange.200"
-              borderRadius="14px"
-            >
               <Box
-                px={4}
-                py={2}
-                display="flex"
-                flexDirection="column"
-                textAlign="center"
+                mt={4}
+                maxW="fit-content"
+                maxH="fit-content"
+                background="orange.200"
+                borderRadius="14px"
               >
-                <p style={{ fontWeight: "bold", fontSize: "18px" }}>SCORE</p>
-                <p style={{ fontWeight: "bold", fontSize: "32px" }}>
-                  {animeDetailsData.data.score
-                    ? animeDetailsData.data.score
-                    : "NA"}
-                </p>
-                <p style={{ fontSize: "14px" }}>
-                  {animeDetailsData.data.scored_by
-                    ? `${animeDetailsData.data.scored_by} Users`
-                    : "0 Users"}
-                </p>
+                <Box
+                  px={4}
+                  py={2}
+                  display="flex"
+                  flexDirection="column"
+                  textAlign="center"
+                >
+                  <p style={{ fontWeight: "bold", fontSize: "18px" }}>SCORE</p>
+                  <p style={{ fontWeight: "bold", fontSize: "32px" }}>
+                    {animeDetailsData.data.score
+                      ? animeDetailsData.data.score
+                      : "NA"}
+                  </p>
+                  <p style={{ fontSize: "14px" }}>
+                    {animeDetailsData.data.scored_by
+                      ? `${animeDetailsData.data.scored_by.toLocaleString(
+                          "id"
+                        )} Users`
+                      : "0 Users"}
+                  </p>
+                </Box>
               </Box>
-            </Box> */}
             </Container>
           </Container>
         </Layout>
