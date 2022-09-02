@@ -215,7 +215,9 @@ export default function AnimeDetail() {
                   </p>
                   <p style={{ fontSize: "14px" }}>
                     {animeDetailsData.data.scored_by
-                      ? `${animeDetailsData.data.scored_by} Users`
+                      ? `${animeDetailsData.data.scored_by.toLocaleString(
+                          "id"
+                        )} Users`
                       : "0 Users"}
                   </p>
                 </Box>
