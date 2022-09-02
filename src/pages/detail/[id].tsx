@@ -40,6 +40,9 @@ export default function AnimeDetail() {
     }
 
     if (animeDetailsData && !animeDetailsData.error) {
+      const animeTitle = animeDetailsData.data.title.toString();
+      const animeTitleEnglish = animeDetailsData.data.title_english?.toString();
+
       // console.log(animeDetailsData.data);
       return (
         <Layout title={animeDetailsData.data.title} router="/">
@@ -107,14 +110,26 @@ export default function AnimeDetail() {
                   />
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <Box mt={-10}>
+                  <Box mt={animeTitleEnglish ? -16 : -10}>
                     <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                      {animeDetailsData.data.title
-                        ? animeDetailsData.data.title.length > 60
-                          ? `${animeDetailsData.data.title.slice(0, 60)}...`
-                          : animeDetailsData.data.title
+                      {animeTitleEnglish
+                        ? animeTitleEnglish.length > 60
+                          ? `${animeTitleEnglish.slice(0, 60)}...`
+                          : animeTitleEnglish
                         : "NA"}
                     </h2>
+                    {animeTitle ? (
+                      animeTitle.length > 60 ? (
+                        <p style={{ fontStyle: "italic" }}>{`${animeTitle.slice(
+                          0,
+                          60
+                        )}...`}</p>
+                      ) : (
+                        <p style={{ fontStyle: "italic" }}>
+                          {animeTitle.slice(0, 60)}
+                        </p>
+                      )
+                    ) : null}
                   </Box>
                   <Box>
                     <Box
@@ -123,7 +138,7 @@ export default function AnimeDetail() {
                       gap={2}
                       alignItems="flex-end"
                       justifyContent="space-between"
-                      maxW="container.xl"
+                      width="container.lg"
                     >
                       <h3
                         style={{
