@@ -51,12 +51,12 @@ export default function AnimeDetail() {
               {animeDetailsData.data.trailer.images.maximum_image_url ? (
                 <Image
                   src={animeDetailsData.data.trailer.images.maximum_image_url}
-                  width="full"
-                  height="md"
+                  w="full"
+                  h="md"
                   filter="blur(4px)"
                 />
               ) : (
-                <Box></Box>
+                <Box w="full" h="md"></Box>
               )}
 
               <Box
@@ -65,6 +65,9 @@ export default function AnimeDetail() {
                 left={0}
                 w="100%"
                 h="100%"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
                 background="#F6DFEB"
                 opacity={
                   animeDetailsData.data.trailer.images.maximum_image_url
@@ -111,25 +114,26 @@ export default function AnimeDetail() {
                 </Box>
                 <Box display="flex" flexDirection="column">
                   <Box mt={animeTitleEnglish ? -16 : -10}>
-                    <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
-                      {animeTitleEnglish
-                        ? animeTitleEnglish.length > 60
-                          ? `${animeTitleEnglish.slice(0, 60)}...`
-                          : animeTitleEnglish
-                        : "NA"}
-                    </h2>
-                    {animeTitle ? (
-                      animeTitle.length > 60 ? (
-                        <p style={{ fontStyle: "italic" }}>{`${animeTitle.slice(
-                          0,
-                          60
-                        )}...`}</p>
-                      ) : (
+                    {animeTitle && animeTitleEnglish ? (
+                      <div>
+                        <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                          {animeTitleEnglish.length > 60
+                            ? `${animeTitleEnglish.slice(0, 60)}...`
+                            : animeTitleEnglish}
+                        </h2>
                         <p style={{ fontStyle: "italic" }}>
-                          {animeTitle.slice(0, 60)}
+                          {animeTitle.length > 60
+                            ? `${animeTitle.slice(0, 60)}...`
+                            : animeTitle}
                         </p>
-                      )
-                    ) : null}
+                      </div>
+                    ) : (
+                      <h2 style={{ fontWeight: "bold", fontSize: "24px" }}>
+                        {animeTitle.length > 60
+                          ? `${animeTitle.slice(0, 60)}...`
+                          : animeTitle}
+                      </h2>
+                    )}
                   </Box>
                   <Box>
                     <Box
