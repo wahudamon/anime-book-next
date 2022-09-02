@@ -52,7 +52,7 @@ export default function AnimeDetail() {
                 <Image
                   src={animeDetailsData.data.trailer.images.maximum_image_url}
                   w="full"
-                  h="md"
+                  h="lg"
                   filter="blur(4px)"
                 />
               ) : (
