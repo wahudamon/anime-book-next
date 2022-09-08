@@ -47,12 +47,12 @@ export default function AnimeDetail() {
       return (
         <Layout title={animeDetailsData.data.title} router="/">
           <Container marginX={0} p={0} maxW="full">
-            <Box position="relative" top={2} zIndex={5} w="full">
+            <Box position="relative" zIndex={5} w="full">
               {animeDetailsData.data.trailer.images.maximum_image_url ? (
                 <Image
                   src={animeDetailsData.data.trailer.images.maximum_image_url}
                   w="full"
-                  h="xl"
+                  h="md"
                   filter="blur(4px)"
                 />
               ) : (
@@ -71,7 +71,7 @@ export default function AnimeDetail() {
                 background="#F6DFEB"
                 opacity={
                   animeDetailsData.data.trailer.images.maximum_image_url
-                    ? 0.6
+                    ? 0.7
                     : 1
                 }
               >
@@ -102,13 +102,13 @@ export default function AnimeDetail() {
               zIndex={15}
               background="#F6DFEB"
             >
-              <Box display="grid" gridTemplateColumns="300px auto auto" gap={6}>
+              <Box display="grid" gridTemplateColumns="15% 80% 5%" gap={6}>
                 <Box mt={-20} maxW="fit-content">
                   <Image
                     src={animeDetailsData.data.images.jpg.image_url}
-                    w="300px"
-                    h="400px"
-                    fit="cover"
+                    maxW="200px"
+                    maxH="300px"
+                    fit="fill"
                     borderRadius="14px"
                   />
                 </Box>
