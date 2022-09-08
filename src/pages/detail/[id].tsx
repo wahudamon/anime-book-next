@@ -102,7 +102,7 @@ export default function AnimeDetail() {
               zIndex={15}
               background="#F6DFEB"
             >
-              <Box display="grid" gridTemplateColumns="15% 80% 5%" gap={6}>
+              <Box display="grid" gridTemplateColumns="14% 81% 5%" gap={6}>
                 <Box mt={-20} maxW="fit-content">
                   <Image
                     src={animeDetailsData.data.images.jpg.image_url}
