@@ -262,6 +262,24 @@ export default function AnimeDetail() {
                   <TabPanel>
                     <TabPanelGridItems>
                       <TabPanelGridItem
+                        title="Airing Date"
+                        content={
+                          animeDetailsData.data.aired &&
+                          animeDetailsData.data.aired.string
+                            ? animeDetailsData.data.aired.string
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Broadcast"
+                        content={
+                          animeDetailsData.data.broadcast &&
+                          animeDetailsData.data.broadcast.string
+                            ? animeDetailsData.data.broadcast.string
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
                         title="Genres"
                         content={
                           genresList.length !== 0
@@ -296,15 +314,7 @@ export default function AnimeDetail() {
                             : "Not Available"
                         }
                       />
-                      <TabPanelGridItem
-                        title="Airing Date"
-                        content={
-                          animeDetailsData.data.aired &&
-                          animeDetailsData.data.aired.string
-                            ? animeDetailsData.data.aired.string
-                            : "Not Available"
-                        }
-                      />
+
                       <TabPanelGridItem
                         title="Rating"
                         content={
@@ -332,16 +342,16 @@ export default function AnimeDetail() {
                     </TabPanelGridItems>
                   </TabPanel>
                   <TabPanel>
-                    <p>Two!</p>
+                    <p>To be announced!</p>
                   </TabPanel>
                   <TabPanel>
-                    <p>Three!</p>
+                    <p>To be announced!</p>
                   </TabPanel>
                   <TabPanel>
-                    <p>Four!</p>
+                    <p>To be announced!</p>
                   </TabPanel>
                   <TabPanel>
-                    <p>Five!</p>
+                    <p>To be announced!</p>
                   </TabPanel>
                 </TabPanels>
               </Tabs>
