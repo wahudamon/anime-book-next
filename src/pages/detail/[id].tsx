@@ -251,11 +251,11 @@ export default function AnimeDetail() {
             <Box mt={2}>
               <Tabs isFitted size="lg" variant="line" colorScheme="purple">
                 <TabList>
-                  <Tab>Details</Tab>
-                  <Tab>Episodes</Tab>
-                  <Tab>Characters</Tab>
-                  <Tab>Staffs</Tab>
-                  <Tab>Recommendations</Tab>
+                  <Tab fontWeight="bold">Details</Tab>
+                  <Tab fontWeight="bold">Episodes</Tab>
+                  <Tab fontWeight="bold">Characters</Tab>
+                  <Tab fontWeight="bold">Staffs</Tab>
+                  <Tab fontWeight="bold">Recommendations</Tab>
                 </TabList>
 
                 <TabPanels>
