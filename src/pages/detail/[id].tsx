@@ -1,4 +1,13 @@
-import { Box, Container, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Image,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Layout from "../../components/layouts/Main";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
@@ -102,7 +111,7 @@ export default function AnimeDetail() {
               zIndex={15}
               background="#F6DFEB"
             >
-              <Box display="grid" gridTemplateColumns="14% 81% 5%" gap={6}>
+              <Box display="grid" gridTemplateColumns="15% 80% 5%" gap={6}>
                 <Box mt={-20} maxW="fit-content">
                   <Image
                     src={animeDetailsData.data.images.jpg.image_url}
@@ -193,7 +202,7 @@ export default function AnimeDetail() {
                   </Box>
                 </Box>
               </Box>
-              <Box
+              {/* <Box
                 mt={4}
                 maxW="fit-content"
                 maxH="fit-content"
@@ -221,8 +230,37 @@ export default function AnimeDetail() {
                       : "0 Users"}
                   </p>
                 </Box>
-              </Box>
+              </Box> */}
             </Container>
+            <Box mt={2}>
+              <Tabs isFitted size="lg" variant="line" colorScheme="purple">
+                <TabList>
+                  <Tab>Details</Tab>
+                  <Tab>Episodes</Tab>
+                  <Tab>Characters</Tab>
+                  <Tab>Staffs</Tab>
+                  <Tab>Recommendations</Tab>
+                </TabList>
+
+                <TabPanels>
+                  <TabPanel>
+                    <p>One!</p>
+                  </TabPanel>
+                  <TabPanel>
+                    <p>Two!</p>
+                  </TabPanel>
+                  <TabPanel>
+                    <p>Three!</p>
+                  </TabPanel>
+                  <TabPanel>
+                    <p>Four!</p>
+                  </TabPanel>
+                  <TabPanel>
+                    <p>Five!</p>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </Box>
           </Container>
         </Layout>
       );
