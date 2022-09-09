@@ -13,16 +13,20 @@ import Layout from "../../components/layouts/Main";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import TabPanelGridItem from "../../components/TabPanelGridItem";
 import TabPanelGridItems from "../../components/TabPanelGridItems";
-import { getAnimeDetails } from "../../lib/api";
+import { getAnimeDetails, getAnimeEpisodes } from "../../lib/api";
 
 export default function AnimeDetail() {
   const router = useRouter();
   const { id } = router.query;
-  let animeDetailsData = null;
+  let animeDetailsData, animeEpisodes;
 
   if (id) {
     const { data } = getAnimeDetails(id.toString());
+    const { episodesData } = getAnimeEpisodes(id.toString());
+
     animeDetailsData = data;
+    animeEpisodes =
+      episodesData && episodesData.data ? episodesData.data : null;
 
     if (animeDetailsData && animeDetailsData.error) {
       return (
@@ -67,7 +71,7 @@ export default function AnimeDetail() {
           studiosList.push(studio.name)
         );
 
-      console.log(animeDetailsData.data);
+      // console.log(animeDetailsData.data);
 
       return (
         <Layout title={animeDetailsData.data.title} router="/">

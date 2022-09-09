@@ -93,8 +93,8 @@ export function getAnimeEpisodes(id: string) {
   const { data, error } = useSWR(`${apiUrl}/anime/${id}/episodes`, fetcher);
 
   return {
-    data,
-    error,
+    episodesData: data,
+    episodesError: error,
   };
 }
 
