@@ -54,7 +54,21 @@ export default function AnimeDetail() {
       const animeTitle = animeDetailsData.data.title.toString();
       const animeTitleEnglish = animeDetailsData.data.title_english?.toString();
 
-      // console.log(animeDetailsData.data);
+      let genresList = [],
+        studiosList = [];
+
+      if (animeDetailsData.data.genres.length !== 0)
+        animeDetailsData.data.genres.map((genre) =>
+          genresList.push(genre.name)
+        );
+
+      if (animeDetailsData.data.studios.length !== 0)
+        animeDetailsData.data.studios.map((studio) =>
+          studiosList.push(studio.name)
+        );
+
+      console.log(animeDetailsData.data);
+
       return (
         <Layout title={animeDetailsData.data.title} router="/">
           <Container marginX={0} p={0} maxW="full">
@@ -248,6 +262,22 @@ export default function AnimeDetail() {
                   <TabPanel>
                     <TabPanelGridItems>
                       <TabPanelGridItem
+                        title="Genres"
+                        content={
+                          genresList.length !== 0
+                            ? genresList.join(", ")
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Studios"
+                        content={
+                          studiosList.length !== 0
+                            ? studiosList.join(", ")
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
                         title="Season"
                         content={
                           animeDetailsData.data.season
@@ -267,10 +297,27 @@ export default function AnimeDetail() {
                         }
                       />
                       <TabPanelGridItem
+                        title="Airing Date"
+                        content={
+                          animeDetailsData.data.aired &&
+                          animeDetailsData.data.aired.string
+                            ? animeDetailsData.data.aired.string
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
                         title="Rating"
                         content={
                           animeDetailsData.data.rating
                             ? animeDetailsData.data.rating
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Episodes"
+                        content={
+                          animeDetailsData.data.episodes
+                            ? animeDetailsData.data.episodes
                             : "Not Available"
                         }
                       />
