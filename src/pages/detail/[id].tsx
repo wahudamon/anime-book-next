@@ -247,8 +247,41 @@ export default function AnimeDetail() {
                 <TabPanels>
                   <TabPanel>
                     <TabPanelGridItems>
-                      <TabPanelGridItem title="Type" content="Ipsum" />
-                      <TabPanelGridItem title="Studios" content="Ipsum" />
+                      <TabPanelGridItem
+                        title="Season"
+                        content={
+                          animeDetailsData.data.season
+                            ? animeDetailsData.data.season
+                                .charAt(0)
+                                .toUpperCase() +
+                              animeDetailsData.data.season.slice(1)
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Type"
+                        content={
+                          animeDetailsData.data.type
+                            ? animeDetailsData.data.type
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Rating"
+                        content={
+                          animeDetailsData.data.rating
+                            ? animeDetailsData.data.rating
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Duration"
+                        content={
+                          animeDetailsData.data.duration
+                            ? animeDetailsData.data.duration
+                            : "Not Available"
+                        }
+                      />
                     </TabPanelGridItems>
                   </TabPanel>
                   <TabPanel>
