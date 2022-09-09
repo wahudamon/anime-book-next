@@ -1,13 +1,22 @@
 import {
   Box,
   Container,
+  Heading,
   Image,
+  Link,
   Tab,
+  Table,
+  TableContainer,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
+  Tbody,
+  Td,
+  Text,
+  Tr,
 } from "@chakra-ui/react";
+import { StarIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import Layout from "../../components/layouts/Main";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
@@ -346,7 +355,40 @@ export default function AnimeDetail() {
                     </TabPanelGridItems>
                   </TabPanel>
                   <TabPanel>
-                    <p>To be announced!</p>
+                    {animeEpisodes && animeEpisodes.length ? (
+                      <TableContainer>
+                        <Table variant="simple">
+                          <Tbody>
+                            {animeEpisodes.map((episode, index) => (
+                              <Tr key={index}>
+                                <Td fontWeight="bold" fontSize="18pt">
+                                  Episode {episode.mal_id}
+                                </Td>
+                                <Td fontSize="18pt">{episode.title}</Td>
+                                <Td fontStyle="italic" fontSize="18pt">
+                                  {episode.title_romanji}
+                                </Td>
+                                <Td fontStyle="italic" fontSize="18pt">
+                                  <StarIcon /> {episode.score}
+                                </Td>
+                                <Td fontSize="18pt">
+                                  {episode.aired.slice(0, 10)}
+                                </Td>
+                                <Td fontStyle="italic" fontSize="18pt">
+                                  <Link href={episode.forum_url} color="purple">
+                                    Discussions
+                                  </Link>
+                                </Td>
+                              </Tr>
+                            ))}
+                          </Tbody>
+                        </Table>
+                      </TableContainer>
+                    ) : (
+                      <Text as="p" fontWeight="bold" fontSize="18pt">
+                        Not Available.
+                      </Text>
+                    )}
                   </TabPanel>
                   <TabPanel>
                     <p>To be announced!</p>
