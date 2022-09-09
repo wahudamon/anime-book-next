@@ -1,17 +1,40 @@
-import { Box, Container, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Image,
+  Link,
+  Tab,
+  Table,
+  TableContainer,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Tbody,
+  Td,
+  Text,
+  Tr,
+} from "@chakra-ui/react";
+import { StarIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import Layout from "../../components/layouts/Main";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
-import { getAnimeDetails } from "../../lib/api";
+import TabPanelGridItem from "../../components/TabPanelGridItem";
+import TabPanelGridItems from "../../components/TabPanelGridItems";
+import { getAnimeDetails, getAnimeEpisodes } from "../../lib/api";
 
 export default function AnimeDetail() {
   const router = useRouter();
   const { id } = router.query;
-  let animeDetailsData = null;
+  let animeDetailsData, animeEpisodes;
 
   if (id) {
     const { data } = getAnimeDetails(id.toString());
+    const { episodesData } = getAnimeEpisodes(id.toString());
+
     animeDetailsData = data;
+    animeEpisodes =
+      episodesData && episodesData.data ? episodesData.data : null;
 
     if (animeDetailsData && animeDetailsData.error) {
       return (
@@ -43,7 +66,21 @@ export default function AnimeDetail() {
       const animeTitle = animeDetailsData.data.title.toString();
       const animeTitleEnglish = animeDetailsData.data.title_english?.toString();
 
+      let genresList = [],
+        studiosList = [];
+
+      if (animeDetailsData.data.genres.length !== 0)
+        animeDetailsData.data.genres.map((genre) =>
+          genresList.push(genre.name)
+        );
+
+      if (animeDetailsData.data.studios.length !== 0)
+        animeDetailsData.data.studios.map((studio) =>
+          studiosList.push(studio.name)
+        );
+
       // console.log(animeDetailsData.data);
+
       return (
         <Layout title={animeDetailsData.data.title} router="/">
           <Container marginX={0} p={0} maxW="full">
@@ -102,7 +139,7 @@ export default function AnimeDetail() {
               zIndex={15}
               background="#F6DFEB"
             >
-              <Box display="grid" gridTemplateColumns="14% 81% 5%" gap={6}>
+              <Box display="grid" gridTemplateColumns="15% 80% 5%" gap={6}>
                 <Box mt={-20} maxW="fit-content">
                   <Image
                     src={animeDetailsData.data.images.jpg.image_url}
@@ -193,7 +230,7 @@ export default function AnimeDetail() {
                   </Box>
                 </Box>
               </Box>
-              <Box
+              {/* <Box
                 mt={4}
                 maxW="fit-content"
                 maxH="fit-content"
@@ -221,8 +258,149 @@ export default function AnimeDetail() {
                       : "0 Users"}
                   </p>
                 </Box>
-              </Box>
+              </Box> */}
             </Container>
+            <Box mt={2}>
+              <Tabs isFitted size="lg" variant="line" colorScheme="purple">
+                <TabList>
+                  <Tab fontWeight="bold">Details</Tab>
+                  <Tab fontWeight="bold">Episodes</Tab>
+                  <Tab fontWeight="bold">Characters</Tab>
+                  <Tab fontWeight="bold">Staffs</Tab>
+                  <Tab fontWeight="bold">Recommendations</Tab>
+                </TabList>
+
+                <TabPanels>
+                  <TabPanel>
+                    <TabPanelGridItems>
+                      <TabPanelGridItem
+                        title="Airing Date"
+                        content={
+                          animeDetailsData.data.aired &&
+                          animeDetailsData.data.aired.string
+                            ? animeDetailsData.data.aired.string
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Broadcast"
+                        content={
+                          animeDetailsData.data.broadcast &&
+                          animeDetailsData.data.broadcast.string
+                            ? animeDetailsData.data.broadcast.string
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Genres"
+                        content={
+                          genresList.length !== 0
+                            ? genresList.join(", ")
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Studios"
+                        content={
+                          studiosList.length !== 0
+                            ? studiosList.join(", ")
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Season"
+                        content={
+                          animeDetailsData.data.season
+                            ? animeDetailsData.data.season
+                                .charAt(0)
+                                .toUpperCase() +
+                              animeDetailsData.data.season.slice(1)
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Type"
+                        content={
+                          animeDetailsData.data.type
+                            ? animeDetailsData.data.type
+                            : "Not Available"
+                        }
+                      />
+
+                      <TabPanelGridItem
+                        title="Rating"
+                        content={
+                          animeDetailsData.data.rating
+                            ? animeDetailsData.data.rating
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Episodes"
+                        content={
+                          animeDetailsData.data.episodes
+                            ? animeDetailsData.data.episodes
+                            : "Not Available"
+                        }
+                      />
+                      <TabPanelGridItem
+                        title="Duration"
+                        content={
+                          animeDetailsData.data.duration
+                            ? animeDetailsData.data.duration
+                            : "Not Available"
+                        }
+                      />
+                    </TabPanelGridItems>
+                  </TabPanel>
+                  <TabPanel>
+                    {animeEpisodes && animeEpisodes.length ? (
+                      <TableContainer>
+                        <Table variant="simple">
+                          <Tbody>
+                            {animeEpisodes.map((episode, index) => (
+                              <Tr key={index}>
+                                <Td fontWeight="bold" fontSize="18pt">
+                                  Episode {episode.mal_id}
+                                </Td>
+                                <Td fontSize="18pt">{episode.title}</Td>
+                                <Td fontStyle="italic" fontSize="18pt">
+                                  {episode.title_romanji}
+                                </Td>
+                                <Td fontStyle="italic" fontSize="18pt">
+                                  <StarIcon /> {episode.score}
+                                </Td>
+                                <Td fontSize="18pt">
+                                  {episode.aired.slice(0, 10)}
+                                </Td>
+                                <Td fontStyle="italic" fontSize="18pt">
+                                  <Link href={episode.forum_url} color="purple">
+                                    Discussions
+                                  </Link>
+                                </Td>
+                              </Tr>
+                            ))}
+                          </Tbody>
+                        </Table>
+                      </TableContainer>
+                    ) : (
+                      <Text as="p" fontWeight="bold" fontSize="18pt">
+                        Not Available.
+                      </Text>
+                    )}
+                  </TabPanel>
+                  <TabPanel>
+                    <p>To be announced!</p>
+                  </TabPanel>
+                  <TabPanel>
+                    <p>To be announced!</p>
+                  </TabPanel>
+                  <TabPanel>
+                    <p>To be announced!</p>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </Box>
           </Container>
         </Layout>
       );
