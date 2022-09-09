@@ -11,6 +11,8 @@ import {
 import { useRouter } from "next/router";
 import Layout from "../../components/layouts/Main";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
+import TabPanelGridItem from "../../components/TabPanelGridItem";
+import TabPanelGridItems from "../../components/TabPanelGridItems";
 import { getAnimeDetails } from "../../lib/api";
 
 export default function AnimeDetail() {
@@ -244,7 +246,10 @@ export default function AnimeDetail() {
 
                 <TabPanels>
                   <TabPanel>
-                    <p>One!</p>
+                    <TabPanelGridItems>
+                      <TabPanelGridItem title="Type" content="Ipsum" />
+                      <TabPanelGridItem title="Studios" content="Ipsum" />
+                    </TabPanelGridItems>
                   </TabPanel>
                   <TabPanel>
                     <p>Two!</p>
