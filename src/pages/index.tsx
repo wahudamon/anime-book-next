@@ -6,8 +6,8 @@ import { Grid } from "../components/Grid";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 
 export default function Index() {
-  const { upcomingDatas, upcomingError } = getUpcoming();
-  const { todayDatas, todayError } = getTodayReleases();
+  const { upcomingDatas } = getUpcoming();
+  const { todayDatas } = getTodayReleases();
 
   if (!upcomingDatas || !todayDatas) {
     return (
@@ -20,8 +20,8 @@ export default function Index() {
   return (
     <Layout title="Home" router="/">
       <Container maxW="container.xl">
-        <Grid title="Today's Releases" data={todayDatas} error={todayError} />
-        <Grid title="Upcoming" data={upcomingDatas} error={upcomingError} />
+        <Grid title="Today's Releases" data={todayDatas} />
+        <Grid title="Upcoming" data={upcomingDatas} />
       </Container>
     </Layout>
   );

@@ -3,13 +3,13 @@ import { Container, Heading, Button, SimpleGrid, Box } from "@chakra-ui/react";
 import Section from "./Section";
 import { GridItem } from "./GridItem";
 
-export const Grid = ({ title, data, error }) => {
+export const Grid = ({ title, data }) => {
   const [showAll, setShowAll] = useState(false);
   const changeShowAllValue = () => {
     setShowAll(!showAll);
   };
 
-  if (error)
+  if (data && data.error)
     return (
       <Container maxW="container.xl">
         <Container
@@ -99,31 +99,31 @@ export const Grid = ({ title, data, error }) => {
         <SimpleGrid columns={[1, 3, 5]} gap={8}>
           {showAll
             ? data.data.map((data: any, index: number) => {
-              return (
-                <Section key={index}>
-                  <GridItem
-                    id={`${data.mal_id}`}
-                    title={
-                      data.title_english ? data.title_english : data.title
-                    }
-                    thumbnail={data.images.jpg.image_url}
-                  />
-                </Section>
-              );
-            })
+                return (
+                  <Section key={index}>
+                    <GridItem
+                      id={`${data.mal_id}`}
+                      title={
+                        data.title_english ? data.title_english : data.title
+                      }
+                      thumbnail={data.images.jpg.image_url}
+                    />
+                  </Section>
+                );
+              })
             : data.data.slice(0, 5).map((data: any, index: number) => {
-              return (
-                <Section key={index}>
-                  <GridItem
-                    id={`${data.mal_id}`}
-                    title={
-                      data.title_english ? data.title_english : data.title
-                    }
-                    thumbnail={data.images.jpg.image_url}
-                  />
-                </Section>
-              );
-            })}
+                return (
+                  <Section key={index}>
+                    <GridItem
+                      id={`${data.mal_id}`}
+                      title={
+                        data.title_english ? data.title_english : data.title
+                      }
+                      thumbnail={data.images.jpg.image_url}
+                    />
+                  </Section>
+                );
+              })}
         </SimpleGrid>
       </Container>
     );
