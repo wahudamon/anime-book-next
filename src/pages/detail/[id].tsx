@@ -26,17 +26,17 @@ import { getAnimeDetails, getAnimeEpisodes } from "../../lib/api";
 export default function AnimeDetail() {
   const router = useRouter();
   const { id } = router.query;
-  let animeDetailsData, animeEpisodes;
+  let animeDetails, animeEpisodes;
 
   if (id) {
-    const { data } = getAnimeDetails(id.toString());
+    const { detailsData } = getAnimeDetails(id.toString());
     const { episodesData } = getAnimeEpisodes(id.toString());
 
-    animeDetailsData = data;
+    animeDetails = detailsData && detailsData.data ? detailsData.data : null;
     animeEpisodes =
       episodesData && episodesData.data ? episodesData.data : null;
 
-    if (animeDetailsData && animeDetailsData.error) {
+    if (animeDetails && animeDetails.error) {
       return (
         <Layout title="Anime Details" router="/">
           <Container mt={8} maxW="container.xl">
@@ -54,7 +54,7 @@ export default function AnimeDetail() {
       );
     }
 
-    if (!animeDetailsData) {
+    if (!animeDetails) {
       return (
         <Layout title="Anime Details" router="/">
           <LoadingSpinner />
@@ -62,32 +62,28 @@ export default function AnimeDetail() {
       );
     }
 
-    if (animeDetailsData && !animeDetailsData.error) {
-      const animeTitle = animeDetailsData.data.title.toString();
-      const animeTitleEnglish = animeDetailsData.data.title_english?.toString();
+    if (animeDetails && !animeDetails.error) {
+      const animeTitle = animeDetails.title.toString();
+      const animeTitleEnglish = animeDetails.title_english?.toString();
 
       let genresList = [],
         studiosList = [];
 
-      if (animeDetailsData.data.genres.length !== 0)
-        animeDetailsData.data.genres.map((genre) =>
-          genresList.push(genre.name)
-        );
+      if (animeDetails.genres.length !== 0)
+        animeDetails.genres.map((genre) => genresList.push(genre.name));
 
-      if (animeDetailsData.data.studios.length !== 0)
-        animeDetailsData.data.studios.map((studio) =>
-          studiosList.push(studio.name)
-        );
+      if (animeDetails.studios.length !== 0)
+        animeDetails.studios.map((studio) => studiosList.push(studio.name));
 
-      // console.log(animeDetailsData.data);
+      // console.log(animeDetails);
 
       return (
-        <Layout title={animeDetailsData.data.title} router="/">
+        <Layout title={animeDetails.title} router="/">
           <Container marginX={0} p={0} maxW="full">
             <Box position="relative" zIndex={5} w="full">
-              {animeDetailsData.data.trailer.images.maximum_image_url ? (
+              {animeDetails.trailer.images.maximum_image_url ? (
                 <Image
-                  src={animeDetailsData.data.trailer.images.maximum_image_url}
+                  src={animeDetails.trailer.images.maximum_image_url}
                   w="full"
                   h="md"
                   filter="blur(4px)"
@@ -107,12 +103,10 @@ export default function AnimeDetail() {
                 alignItems="center"
                 background="#F6DFEB"
                 opacity={
-                  animeDetailsData.data.trailer.images.maximum_image_url
-                    ? 0.7
-                    : 1
+                  animeDetails.trailer.images.maximum_image_url ? 0.7 : 1
                 }
               >
-                {animeDetailsData.data.trailer.images.maximum_image_url ? (
+                {animeDetails.trailer.images.maximum_image_url ? (
                   <div></div>
                 ) : (
                   <h2
@@ -142,7 +136,7 @@ export default function AnimeDetail() {
               <Box display="grid" gridTemplateColumns="15% 80% 5%" gap={6}>
                 <Box mt={-20} maxW="fit-content">
                   <Image
-                    src={animeDetailsData.data.images.jpg.image_url}
+                    src={animeDetails.images.jpg.image_url}
                     maxW="200px"
                     maxH="300px"
                     fit="fill"
@@ -196,20 +190,16 @@ export default function AnimeDetail() {
                       >
                         <h3>
                           Status:&nbsp;
-                          {animeDetailsData.data.status
-                            ? animeDetailsData.data.status
-                            : "NA"}
+                          {animeDetails.status ? animeDetails.status : "NA"}
                         </h3>
                         <h3>
                           Rank:&nbsp;
-                          {animeDetailsData.data.rank
-                            ? `#${animeDetailsData.data.rank}`
-                            : "NA"}
+                          {animeDetails.rank ? `#${animeDetails.rank}` : "NA"}
                         </h3>
                         <h3>
                           Popularity:&nbsp;
-                          {animeDetailsData.data.popularity
-                            ? `#${animeDetailsData.data.popularity}`
+                          {animeDetails.popularity
+                            ? `#${animeDetails.popularity}`
                             : "NA"}
                         </h3>
                       </Box>
@@ -223,8 +213,8 @@ export default function AnimeDetail() {
                         fontWeight: "400",
                       }}
                     >
-                      {animeDetailsData.data.synopsis
-                        ? animeDetailsData.data.synopsis
+                      {animeDetails.synopsis
+                        ? animeDetails.synopsis
                         : "No synopsis found."}
                     </p>
                   </Box>
@@ -246,13 +236,13 @@ export default function AnimeDetail() {
                 >
                   <p style={{ fontWeight: "bold", fontSize: "18px" }}>SCORE</p>
                   <p style={{ fontWeight: "bold", fontSize: "32px" }}>
-                    {animeDetailsData.data.score
-                      ? animeDetailsData.data.score
+                    {animeDetails.score
+                      ? animeDetails.score
                       : "NA"}
                   </p>
                   <p style={{ fontSize: "14px" }}>
-                    {animeDetailsData.data.scored_by
-                      ? `${animeDetailsData.data.scored_by.toLocaleString(
+                    {animeDetails.scored_by
+                      ? `${animeDetails.scored_by.toLocaleString(
                           "id"
                         )} Users`
                       : "0 Users"}
@@ -276,18 +266,17 @@ export default function AnimeDetail() {
                       <TabPanelGridItem
                         title="Airing Date"
                         content={
-                          animeDetailsData.data.aired &&
-                          animeDetailsData.data.aired.string
-                            ? animeDetailsData.data.aired.string
+                          animeDetails.aired && animeDetails.aired.string
+                            ? animeDetails.aired.string
                             : "Not Available"
                         }
                       />
                       <TabPanelGridItem
                         title="Broadcast"
                         content={
-                          animeDetailsData.data.broadcast &&
-                          animeDetailsData.data.broadcast.string
-                            ? animeDetailsData.data.broadcast.string
+                          animeDetails.broadcast &&
+                          animeDetails.broadcast.string
+                            ? animeDetails.broadcast.string
                             : "Not Available"
                         }
                       />
@@ -310,19 +299,17 @@ export default function AnimeDetail() {
                       <TabPanelGridItem
                         title="Season"
                         content={
-                          animeDetailsData.data.season
-                            ? animeDetailsData.data.season
-                                .charAt(0)
-                                .toUpperCase() +
-                              animeDetailsData.data.season.slice(1)
+                          animeDetails.season
+                            ? animeDetails.season.charAt(0).toUpperCase() +
+                              animeDetails.season.slice(1)
                             : "Not Available"
                         }
                       />
                       <TabPanelGridItem
                         title="Type"
                         content={
-                          animeDetailsData.data.type
-                            ? animeDetailsData.data.type
+                          animeDetails.type
+                            ? animeDetails.type
                             : "Not Available"
                         }
                       />
@@ -330,24 +317,24 @@ export default function AnimeDetail() {
                       <TabPanelGridItem
                         title="Rating"
                         content={
-                          animeDetailsData.data.rating
-                            ? animeDetailsData.data.rating
+                          animeDetails.rating
+                            ? animeDetails.rating
                             : "Not Available"
                         }
                       />
                       <TabPanelGridItem
                         title="Episodes"
                         content={
-                          animeDetailsData.data.episodes
-                            ? animeDetailsData.data.episodes
+                          animeDetails.episodes
+                            ? animeDetails.episodes
                             : "Not Available"
                         }
                       />
                       <TabPanelGridItem
                         title="Duration"
                         content={
-                          animeDetailsData.data.duration
-                            ? animeDetailsData.data.duration
+                          animeDetails.duration
+                            ? animeDetails.duration
                             : "Not Available"
                         }
                       />
