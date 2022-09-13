@@ -3,6 +3,7 @@ import {
   Container,
   Image,
   Link,
+  SimpleGrid,
   Tab,
   Table,
   TableContainer,
@@ -28,6 +29,7 @@ import {
   getAnimeRecommendations,
 } from "../../lib/api";
 import { Grid } from "../../components/Grid";
+import Section from "../../components/Section";
 
 export default function AnimeDetail() {
   const router = useRouter();
@@ -402,9 +404,55 @@ export default function AnimeDetail() {
                     )}
                   </TabPanel>
                   <TabPanel>
-                    <Text as="p" fontWeight="bold" fontSize="18pt">
-                      To be announced!
-                    </Text>
+                    {animeCharacters ? (
+                      <SimpleGrid columns={[1, 3, 5]} gap={8}>
+                        {animeCharacters.map((data: any, index: number) => {
+                          return (
+                            <Section key={index}>
+                              <Box w="100%" h="100%" position="relative">
+                                <Image
+                                  display="block"
+                                  src={data.character?.images?.jpg?.image_url}
+                                  alt={data.character?.name}
+                                  boxSize="xs"
+                                  fit="cover"
+                                  borderRadius="20px"
+                                />
+                                <Box
+                                  w="100%"
+                                  h="20%"
+                                  position="absolute"
+                                  left="0"
+                                  bottom="0"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  background="whiteAlpha.900"
+                                  textAlign="center"
+                                  borderEndStartRadius="20px"
+                                  borderEndEndRadius="20px"
+                                >
+                                  <Text as="p" fontWeight="bold">
+                                    {data.character?.name.length > 30
+                                      ? `${data.character?.name.slice(
+                                          0,
+                                          30
+                                        )}...`
+                                      : data.character?.name}
+                                  </Text>
+                                  <Text as="p">{data.role}</Text>
+                                </Box>
+                              </Box>
+                            </Section>
+                          );
+                        })}
+                      </SimpleGrid>
+                    ) : (
+                      <Text as="p" fontWeight="bold" fontSize="18pt">
+                        Not Available.
+                      </Text>
+                    )}
                   </TabPanel>
                   <TabPanel>
                     <Text as="p" fontWeight="bold" fontSize="18pt">
