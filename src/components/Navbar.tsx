@@ -68,9 +68,9 @@ export default function Navbar(props) {
           mt={{ base: 4, nmd: 0 }}
           pt={2}
         >
-          <LinkItem href="/anime" path={path}>
+          {/* <LinkItem href="/anime" path={path}>
             Anime
-          </LinkItem>
+          </LinkItem> */}
           <LinkItem href="/about" path={path}>
             About
           </LinkItem>
@@ -91,9 +91,9 @@ export default function Navbar(props) {
                 aria-label="Options"
               />
               <MenuList>
-                <NextLink href="/anime" passHref>
+                {/* <NextLink href="/anime" passHref>
                   <MenuItem as={Link}>Anime</MenuItem>
-                </NextLink>
+                </NextLink> */}
                 <NextLink href="/about" passHref>
                   <MenuItem as={Link}>About</MenuItem>
                 </NextLink>

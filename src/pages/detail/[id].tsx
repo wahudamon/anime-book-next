@@ -27,6 +27,7 @@ import {
   getAnimeDetails,
   getAnimeEpisodes,
   getAnimeRecommendations,
+  getAnimeStaffs,
 } from "../../lib/api";
 import { Grid } from "../../components/Grid";
 import Section from "../../components/Section";
@@ -34,18 +35,26 @@ import Section from "../../components/Section";
 export default function AnimeDetail() {
   const router = useRouter();
   const { id } = router.query;
-  let animeDetails, animeEpisodes, animeCharacters, animeRecommendations;
+  let animeDetails,
+    animeEpisodes,
+    animeCharacters,
+    animeRecommendations,
+    animeStaffs;
 
   if (id) {
-    const { detailsData } = getAnimeDetails(id.toString());
-    const { episodesData } = getAnimeEpisodes(id.toString());
-    const { charactersData } = getAnimeCharacters(id.toString());
-    const { recommendationsData } = getAnimeRecommendations(id.toString());
+    const { detailsData } = getAnimeDetails(id?.toString());
+    const { episodesData } = getAnimeEpisodes(id?.toString());
+    const { charactersData } = getAnimeCharacters(id?.toString());
+    const { recommendationsData } = getAnimeRecommendations(id?.toString());
+    // const { staffsData } = getAnimeStaffs(id?.toString());
 
     animeDetails = detailsData?.data;
     animeEpisodes = episodesData?.data;
     animeCharacters = charactersData?.data;
     animeRecommendations = recommendationsData?.data;
+    // animeStaffs = staffsData?.data;
+
+    // console.log(animeStaffs);
 
     if (animeRecommendations) {
       animeRecommendations.data = [];
@@ -101,8 +110,6 @@ export default function AnimeDetail() {
 
       if (animeDetails.studios.length !== 0)
         animeDetails.studios.map((studio) => studiosList.push(studio.name));
-
-      console.log(animeCharacters);
 
       return (
         <Layout title={animeDetails.title} router="/">
@@ -443,7 +450,7 @@ export default function AnimeDetail() {
                                   </Text>
                                   <Text as="p">{data.role}</Text>
                                 </Box>
-                                <Box
+                                {/* <Box
                                   w="100%"
                                   h="100%"
                                   position="absolute"
@@ -492,7 +499,7 @@ export default function AnimeDetail() {
                                         )}...`
                                       : data.seiyuu?.person?.name}
                                   </Text>
-                                </Box>
+                                </Box> */}
                               </Box>
                             </Section>
                           );
@@ -506,8 +513,54 @@ export default function AnimeDetail() {
                   </TabPanel>
                   <TabPanel>
                     <Text as="p" fontWeight="bold" fontSize="18pt">
-                      To be announced!
+                      Not Available.
                     </Text>
+                    {/* {animeStaffs ? (
+                      <SimpleGrid columns={[1, 3, 5]} gap={8}>
+                        {animeStaffs.map((data: any, index: number) => {
+                          return (
+                            <Section key={index}>
+                              <Box w="100%" h="100%" position="relative">
+                                <Image
+                                  display="block"
+                                  src={data.person?.images?.jpg?.image_url}
+                                  alt={data.person?.name}
+                                  boxSize="xs"
+                                  fit="cover"
+                                  borderRadius="20px"
+                                />
+                                <Box
+                                  w="100%"
+                                  h="20%"
+                                  position="absolute"
+                                  left="0"
+                                  bottom="0"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  background="whiteAlpha.900"
+                                  textAlign="center"
+                                  borderEndStartRadius="20px"
+                                  borderEndEndRadius="20px"
+                                >
+                                  <Text as="p" fontWeight="bold">
+                                    {data.person?.name.length > 30
+                                      ? `${data.person?.name.slice(0, 30)}...`
+                                      : data.person?.name}
+                                  </Text>
+                                  <Text as="p">{data.role}</Text>
+                                </Box>
+                              </Box>
+                            </Section>
+                          );
+                        })}
+                      </SimpleGrid>
+                    ) : (
+                      <Text as="p" fontWeight="bold" fontSize="18pt">
+                        Not Available.
+                      </Text>
+                    )} */}
                   </TabPanel>
                   <TabPanel>
                     {animeRecommendations &&

@@ -83,17 +83,19 @@ export const Grid = ({ title, data }) => {
           <Heading as="h3" fontSize={20} mt={8} mb={4}>
             {title}
           </Heading>
-          <Button
-            mt={3}
-            size="sm"
-            background="#F6DFEB"
-            color="blackAlpha.900"
-            _hover={{ background: "#E4BAD4", color: "whiteAlpha.900" }}
-            _active={{ background: "#F6DFEB", color: "whiteAlpha.900" }}
-            onClick={changeShowAllValue}
-          >
-            {showAll ? "Show Less" : "Show All"}
-          </Button>
+          {data && data.data.length >= 5 ? (
+            <Button
+              mt={3}
+              size="sm"
+              background="#F6DFEB"
+              color="blackAlpha.900"
+              _hover={{ background: "#E4BAD4", color: "whiteAlpha.900" }}
+              _active={{ background: "#F6DFEB", color: "whiteAlpha.900" }}
+              onClick={changeShowAllValue}
+            >
+              {showAll ? "Show Less" : "Show All"}
+            </Button>
+          ) : null}
         </Container>
 
         <SimpleGrid columns={[1, 3, 5]} gap={8}>

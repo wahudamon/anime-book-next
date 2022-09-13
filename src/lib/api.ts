@@ -120,6 +120,15 @@ export function getAnimeRecommendations(id: string) {
   };
 }
 
+export function getAnimeStaffs(id: string) {
+  const { data, error } = useSWR(`${apiUrl}/anime/${id}/staff`, fetcher);
+
+  return {
+    staffsData: data,
+    staffsError: error,
+  };
+}
+
 export function getAnimeReviews(id: string) {
   const { data, error } = useSWR(`${apiUrl}/anime/${id}/reviews`, fetcher);
 
