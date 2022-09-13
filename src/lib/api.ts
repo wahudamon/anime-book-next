@@ -73,10 +73,11 @@ export function searchAnimeByTitle(title: string) {
 }
 
 export function getAnimeDetails(id: string) {
-  const { data } = useSWR(`${apiUrl}/anime/${id}/full`, fetcher);
+  const { data, error } = useSWR(`${apiUrl}/anime/${id}/full`, fetcher);
 
   return {
-    data,
+    detailsData: data,
+    detailsError: error,
   };
 }
 
@@ -84,8 +85,8 @@ export function getAnimeCharacters(id: string) {
   const { data, error } = useSWR(`${apiUrl}/anime/${id}/characters`, fetcher);
 
   return {
-    data,
-    error,
+    charactersData: data,
+    charactersError: error,
   };
 }
 
@@ -114,8 +115,17 @@ export function getAnimeRecommendations(id: string) {
   );
 
   return {
-    data,
-    error,
+    recommendationsData: data,
+    recommendationsError: error,
+  };
+}
+
+export function getAnimeStaffs(id: string) {
+  const { data, error } = useSWR(`${apiUrl}/anime/${id}/staff`, fetcher);
+
+  return {
+    staffsData: data,
+    staffsError: error,
   };
 }
 

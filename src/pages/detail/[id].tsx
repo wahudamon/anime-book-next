@@ -3,6 +3,7 @@ import {
   Container,
   Image,
   Link,
+  SimpleGrid,
   Tab,
   Table,
   TableContainer,
@@ -21,22 +22,57 @@ import Layout from "../../components/layouts/Main";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import TabPanelGridItem from "../../components/TabPanelGridItem";
 import TabPanelGridItems from "../../components/TabPanelGridItems";
-import { getAnimeDetails, getAnimeEpisodes } from "../../lib/api";
+import {
+  getAnimeCharacters,
+  getAnimeDetails,
+  getAnimeEpisodes,
+  getAnimeRecommendations,
+  getAnimeStaffs,
+} from "../../lib/api";
+import { Grid } from "../../components/Grid";
+import Section from "../../components/Section";
 
 export default function AnimeDetail() {
   const router = useRouter();
   const { id } = router.query;
-  let animeDetailsData, animeEpisodes;
+  let animeDetails,
+    animeEpisodes,
+    animeCharacters,
+    animeRecommendations,
+    animeStaffs;
 
   if (id) {
-    const { data } = getAnimeDetails(id.toString());
-    const { episodesData } = getAnimeEpisodes(id.toString());
+    const { detailsData } = getAnimeDetails(id?.toString());
+    const { episodesData } = getAnimeEpisodes(id?.toString());
+    const { charactersData } = getAnimeCharacters(id?.toString());
+    const { recommendationsData } = getAnimeRecommendations(id?.toString());
+    // const { staffsData } = getAnimeStaffs(id?.toString());
 
-    animeDetailsData = data;
-    animeEpisodes =
-      episodesData && episodesData.data ? episodesData.data : null;
+    animeDetails = detailsData?.data;
+    animeEpisodes = episodesData?.data;
+    animeCharacters = charactersData?.data;
+    animeRecommendations = recommendationsData?.data;
+    // animeStaffs = staffsData?.data;
 
-    if (animeDetailsData && animeDetailsData.error) {
+    // console.log(animeStaffs);
+
+    if (animeRecommendations) {
+      animeRecommendations.data = [];
+      animeRecommendations.map((recommend) => {
+        animeRecommendations.data.push(recommend.entry);
+      });
+    }
+
+    if (animeCharacters) {
+      animeCharacters.map(
+        (character) =>
+          (character.seiyuu = character.voice_actors.find(
+            (actor) => actor.language === "Japanese"
+          ))
+      );
+    }
+
+    if (animeDetails && animeDetails.error) {
       return (
         <Layout title="Anime Details" router="/">
           <Container mt={8} maxW="container.xl">
@@ -54,7 +90,7 @@ export default function AnimeDetail() {
       );
     }
 
-    if (!animeDetailsData) {
+    if (!animeDetails) {
       return (
         <Layout title="Anime Details" router="/">
           <LoadingSpinner />
@@ -62,32 +98,26 @@ export default function AnimeDetail() {
       );
     }
 
-    if (animeDetailsData && !animeDetailsData.error) {
-      const animeTitle = animeDetailsData.data.title.toString();
-      const animeTitleEnglish = animeDetailsData.data.title_english?.toString();
+    if (animeDetails && !animeDetails.error) {
+      const animeTitle = animeDetails.title.toString();
+      const animeTitleEnglish = animeDetails.title_english?.toString();
 
       let genresList = [],
         studiosList = [];
 
-      if (animeDetailsData.data.genres.length !== 0)
-        animeDetailsData.data.genres.map((genre) =>
-          genresList.push(genre.name)
-        );
+      if (animeDetails.genres.length !== 0)
+        animeDetails.genres.map((genre) => genresList.push(genre.name));
 
-      if (animeDetailsData.data.studios.length !== 0)
-        animeDetailsData.data.studios.map((studio) =>
-          studiosList.push(studio.name)
-        );
-
-      // console.log(animeDetailsData.data);
+      if (animeDetails.studios.length !== 0)
+        animeDetails.studios.map((studio) => studiosList.push(studio.name));
 
       return (
-        <Layout title={animeDetailsData.data.title} router="/">
+        <Layout title={animeDetails.title} router="/">
           <Container marginX={0} p={0} maxW="full">
             <Box position="relative" zIndex={5} w="full">
-              {animeDetailsData.data.trailer.images.maximum_image_url ? (
+              {animeDetails.trailer.images.maximum_image_url ? (
                 <Image
-                  src={animeDetailsData.data.trailer.images.maximum_image_url}
+                  src={animeDetails.trailer.images.maximum_image_url}
                   w="full"
                   h="md"
                   filter="blur(4px)"
@@ -107,12 +137,10 @@ export default function AnimeDetail() {
                 alignItems="center"
                 background="#F6DFEB"
                 opacity={
-                  animeDetailsData.data.trailer.images.maximum_image_url
-                    ? 0.7
-                    : 1
+                  animeDetails.trailer.images.maximum_image_url ? 0.7 : 1
                 }
               >
-                {animeDetailsData.data.trailer.images.maximum_image_url ? (
+                {animeDetails.trailer.images.maximum_image_url ? (
                   <div></div>
                 ) : (
                   <h2
@@ -142,7 +170,7 @@ export default function AnimeDetail() {
               <Box display="grid" gridTemplateColumns="15% 80% 5%" gap={6}>
                 <Box mt={-20} maxW="fit-content">
                   <Image
-                    src={animeDetailsData.data.images.jpg.image_url}
+                    src={animeDetails.images.jpg.image_url}
                     maxW="200px"
                     maxH="300px"
                     fit="fill"
@@ -196,20 +224,16 @@ export default function AnimeDetail() {
                       >
                         <h3>
                           Status:&nbsp;
-                          {animeDetailsData.data.status
-                            ? animeDetailsData.data.status
-                            : "NA"}
+                          {animeDetails.status ? animeDetails.status : "NA"}
                         </h3>
                         <h3>
                           Rank:&nbsp;
-                          {animeDetailsData.data.rank
-                            ? `#${animeDetailsData.data.rank}`
-                            : "NA"}
+                          {animeDetails.rank ? `#${animeDetails.rank}` : "NA"}
                         </h3>
                         <h3>
                           Popularity:&nbsp;
-                          {animeDetailsData.data.popularity
-                            ? `#${animeDetailsData.data.popularity}`
+                          {animeDetails.popularity
+                            ? `#${animeDetails.popularity}`
                             : "NA"}
                         </h3>
                       </Box>
@@ -223,8 +247,8 @@ export default function AnimeDetail() {
                         fontWeight: "400",
                       }}
                     >
-                      {animeDetailsData.data.synopsis
-                        ? animeDetailsData.data.synopsis
+                      {animeDetails.synopsis
+                        ? animeDetails.synopsis
                         : "No synopsis found."}
                     </p>
                   </Box>
@@ -246,13 +270,13 @@ export default function AnimeDetail() {
                 >
                   <p style={{ fontWeight: "bold", fontSize: "18px" }}>SCORE</p>
                   <p style={{ fontWeight: "bold", fontSize: "32px" }}>
-                    {animeDetailsData.data.score
-                      ? animeDetailsData.data.score
+                    {animeDetails.score
+                      ? animeDetails.score
                       : "NA"}
                   </p>
                   <p style={{ fontSize: "14px" }}>
-                    {animeDetailsData.data.scored_by
-                      ? `${animeDetailsData.data.scored_by.toLocaleString(
+                    {animeDetails.scored_by
+                      ? `${animeDetails.scored_by.toLocaleString(
                           "id"
                         )} Users`
                       : "0 Users"}
@@ -276,18 +300,17 @@ export default function AnimeDetail() {
                       <TabPanelGridItem
                         title="Airing Date"
                         content={
-                          animeDetailsData.data.aired &&
-                          animeDetailsData.data.aired.string
-                            ? animeDetailsData.data.aired.string
+                          animeDetails.aired && animeDetails.aired.string
+                            ? animeDetails.aired.string
                             : "Not Available"
                         }
                       />
                       <TabPanelGridItem
                         title="Broadcast"
                         content={
-                          animeDetailsData.data.broadcast &&
-                          animeDetailsData.data.broadcast.string
-                            ? animeDetailsData.data.broadcast.string
+                          animeDetails.broadcast &&
+                          animeDetails.broadcast.string
+                            ? animeDetails.broadcast.string
                             : "Not Available"
                         }
                       />
@@ -310,19 +333,17 @@ export default function AnimeDetail() {
                       <TabPanelGridItem
                         title="Season"
                         content={
-                          animeDetailsData.data.season
-                            ? animeDetailsData.data.season
-                                .charAt(0)
-                                .toUpperCase() +
-                              animeDetailsData.data.season.slice(1)
+                          animeDetails.season
+                            ? animeDetails.season.charAt(0).toUpperCase() +
+                              animeDetails.season.slice(1)
                             : "Not Available"
                         }
                       />
                       <TabPanelGridItem
                         title="Type"
                         content={
-                          animeDetailsData.data.type
-                            ? animeDetailsData.data.type
+                          animeDetails.type
+                            ? animeDetails.type
                             : "Not Available"
                         }
                       />
@@ -330,24 +351,24 @@ export default function AnimeDetail() {
                       <TabPanelGridItem
                         title="Rating"
                         content={
-                          animeDetailsData.data.rating
-                            ? animeDetailsData.data.rating
+                          animeDetails.rating
+                            ? animeDetails.rating
                             : "Not Available"
                         }
                       />
                       <TabPanelGridItem
                         title="Episodes"
                         content={
-                          animeDetailsData.data.episodes
-                            ? animeDetailsData.data.episodes
+                          animeDetails.episodes
+                            ? animeDetails.episodes
                             : "Not Available"
                         }
                       />
                       <TabPanelGridItem
                         title="Duration"
                         content={
-                          animeDetailsData.data.duration
-                            ? animeDetailsData.data.duration
+                          animeDetails.duration
+                            ? animeDetails.duration
                             : "Not Available"
                         }
                       />
@@ -390,13 +411,169 @@ export default function AnimeDetail() {
                     )}
                   </TabPanel>
                   <TabPanel>
-                    <p>To be announced!</p>
+                    {animeCharacters ? (
+                      <SimpleGrid columns={[1, 3, 5]} gap={8}>
+                        {animeCharacters.map((data: any, index: number) => {
+                          return (
+                            <Section key={index}>
+                              <Box w="100%" h="100%" position="relative">
+                                <Image
+                                  display="block"
+                                  src={data.character?.images?.jpg?.image_url}
+                                  alt={data.character?.name}
+                                  boxSize="xs"
+                                  fit="cover"
+                                  borderRadius="20px"
+                                />
+                                <Box
+                                  w="100%"
+                                  h="20%"
+                                  position="absolute"
+                                  left="0"
+                                  bottom="0"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  background="whiteAlpha.900"
+                                  textAlign="center"
+                                  borderEndStartRadius="20px"
+                                  borderEndEndRadius="20px"
+                                >
+                                  <Text as="p" fontWeight="bold">
+                                    {data.character?.name.length > 30
+                                      ? `${data.character?.name.slice(
+                                          0,
+                                          30
+                                        )}...`
+                                      : data.character?.name}
+                                  </Text>
+                                  <Text as="p">{data.role}</Text>
+                                </Box>
+                                {/* <Box
+                                  w="100%"
+                                  h="100%"
+                                  position="absolute"
+                                  left="0"
+                                  bottom="0"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  background="whiteAlpha.900"
+                                  textAlign="center"
+                                  borderRadius="20px"
+                                >
+                                  <Image
+                                    display="block"
+                                    src={
+                                      data.seiyuu?.person?.images?.jpg
+                                        ?.image_url
+                                    }
+                                    alt={data.character?.name}
+                                    boxSize="xs"
+                                    fit="cover"
+                                    borderRadius="20px"
+                                  />
+                                </Box>
+                                <Box
+                                  w="100%"
+                                  h="20%"
+                                  position="absolute"
+                                  left="0"
+                                  bottom="0"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  background="whiteAlpha.900"
+                                  textAlign="center"
+                                  borderEndStartRadius="20px"
+                                  borderEndEndRadius="20px"
+                                >
+                                  <Text as="p" fontWeight="bold">
+                                    {data.seiyuu?.person?.name.length > 30
+                                      ? `${data.seiyuu?.person?.name.slice(
+                                          0,
+                                          30
+                                        )}...`
+                                      : data.seiyuu?.person?.name}
+                                  </Text>
+                                </Box> */}
+                              </Box>
+                            </Section>
+                          );
+                        })}
+                      </SimpleGrid>
+                    ) : (
+                      <Text as="p" fontWeight="bold" fontSize="18pt">
+                        Not Available.
+                      </Text>
+                    )}
                   </TabPanel>
                   <TabPanel>
-                    <p>To be announced!</p>
+                    <Text as="p" fontWeight="bold" fontSize="18pt">
+                      Not Available.
+                    </Text>
+                    {/* {animeStaffs ? (
+                      <SimpleGrid columns={[1, 3, 5]} gap={8}>
+                        {animeStaffs.map((data: any, index: number) => {
+                          return (
+                            <Section key={index}>
+                              <Box w="100%" h="100%" position="relative">
+                                <Image
+                                  display="block"
+                                  src={data.person?.images?.jpg?.image_url}
+                                  alt={data.person?.name}
+                                  boxSize="xs"
+                                  fit="cover"
+                                  borderRadius="20px"
+                                />
+                                <Box
+                                  w="100%"
+                                  h="20%"
+                                  position="absolute"
+                                  left="0"
+                                  bottom="0"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  background="whiteAlpha.900"
+                                  textAlign="center"
+                                  borderEndStartRadius="20px"
+                                  borderEndEndRadius="20px"
+                                >
+                                  <Text as="p" fontWeight="bold">
+                                    {data.person?.name.length > 30
+                                      ? `${data.person?.name.slice(0, 30)}...`
+                                      : data.person?.name}
+                                  </Text>
+                                  <Text as="p">{data.role}</Text>
+                                </Box>
+                              </Box>
+                            </Section>
+                          );
+                        })}
+                      </SimpleGrid>
+                    ) : (
+                      <Text as="p" fontWeight="bold" fontSize="18pt">
+                        Not Available.
+                      </Text>
+                    )} */}
                   </TabPanel>
                   <TabPanel>
-                    <p>To be announced!</p>
+                    {animeRecommendations &&
+                    animeRecommendations.data.length !== 0 ? (
+                      <Grid
+                        title="Similar to this show"
+                        data={animeRecommendations}
+                      />
+                    ) : (
+                      <Text as="p" fontWeight="bold" fontSize="18pt">
+                        Not Available.
+                      </Text>
+                    )}
                   </TabPanel>
                 </TabPanels>
               </Tabs>
