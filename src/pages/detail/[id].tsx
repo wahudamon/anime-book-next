@@ -52,6 +52,15 @@ export default function AnimeDetail() {
       });
     }
 
+    if (animeCharacters) {
+      animeCharacters.map(
+        (character) =>
+          (character.seiyuu = character.voice_actors.find(
+            (actor) => actor.language === "Japanese"
+          ))
+      );
+    }
+
     if (animeDetails && animeDetails.error) {
       return (
         <Layout title="Anime Details" router="/">
@@ -90,6 +99,8 @@ export default function AnimeDetail() {
 
       if (animeDetails.studios.length !== 0)
         animeDetails.studios.map((studio) => studiosList.push(studio.name));
+
+      console.log(animeCharacters);
 
       return (
         <Layout title={animeDetails.title} router="/">
