@@ -115,8 +115,8 @@ export function getAnimeRecommendations(id: string) {
   );
 
   return {
-    data,
-    error,
+    recommendationsData: data,
+    recommendationsError: error,
   };
 }
 

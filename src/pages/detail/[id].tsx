@@ -25,23 +25,38 @@ import {
   getAnimeCharacters,
   getAnimeDetails,
   getAnimeEpisodes,
+  getAnimeRecommendations,
 } from "../../lib/api";
+import { Grid } from "../../components/Grid";
 
 export default function AnimeDetail() {
   const router = useRouter();
   const { id } = router.query;
-  let animeDetails, animeEpisodes, animeCharacters;
+  let animeDetails, animeEpisodes, animeCharacters, animeRecommendations;
 
   if (id) {
     const { detailsData } = getAnimeDetails(id.toString());
     const { episodesData } = getAnimeEpisodes(id.toString());
     const { charactersData } = getAnimeCharacters(id.toString());
+    const { recommendationsData } = getAnimeRecommendations(id.toString());
 
     animeDetails = detailsData && detailsData.data ? detailsData.data : null;
     animeEpisodes =
       episodesData && episodesData.data ? episodesData.data : null;
     animeCharacters =
       charactersData && charactersData.data ? charactersData.data : null;
+    animeRecommendations =
+      recommendationsData && recommendationsData.data
+        ? recommendationsData.data
+        : null;
+
+    // Change recommend.entry to recommend.data
+    if (animeRecommendations) {
+      animeRecommendations.data = [];
+      animeRecommendations.map((recommend) => {
+        animeRecommendations.data.push(recommend.entry);
+      });
+    }
 
     if (animeDetails && animeDetails.error) {
       return (
@@ -82,7 +97,7 @@ export default function AnimeDetail() {
       if (animeDetails.studios.length !== 0)
         animeDetails.studios.map((studio) => studiosList.push(studio.name));
 
-      console.log(animeCharacters);
+      console.log(animeRecommendations);
 
       return (
         <Layout title={animeDetails.title} router="/">
@@ -384,13 +399,27 @@ export default function AnimeDetail() {
                     )}
                   </TabPanel>
                   <TabPanel>
-                    <p>To be announced!</p>
+                    <Text as="p" fontWeight="bold" fontSize="18pt">
+                      To be announced!
+                    </Text>
                   </TabPanel>
                   <TabPanel>
-                    <p>To be announced!</p>
+                    <Text as="p" fontWeight="bold" fontSize="18pt">
+                      To be announced!
+                    </Text>
                   </TabPanel>
                   <TabPanel>
-                    <p>To be announced!</p>
+                    {animeRecommendations &&
+                    animeRecommendations.data.length !== 0 ? (
+                      <Grid
+                        title="Similar to this show"
+                        data={animeRecommendations}
+                      />
+                    ) : (
+                      <Text as="p" fontWeight="bold" fontSize="18pt">
+                        Not Available.
+                      </Text>
+                    )}
                   </TabPanel>
                 </TabPanels>
               </Tabs>
