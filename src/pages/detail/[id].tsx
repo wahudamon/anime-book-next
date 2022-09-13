@@ -443,6 +443,56 @@ export default function AnimeDetail() {
                                   </Text>
                                   <Text as="p">{data.role}</Text>
                                 </Box>
+                                <Box
+                                  w="100%"
+                                  h="100%"
+                                  position="absolute"
+                                  left="0"
+                                  bottom="0"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  background="whiteAlpha.900"
+                                  textAlign="center"
+                                  borderRadius="20px"
+                                >
+                                  <Image
+                                    display="block"
+                                    src={
+                                      data.seiyuu?.person?.images?.jpg
+                                        ?.image_url
+                                    }
+                                    alt={data.character?.name}
+                                    boxSize="xs"
+                                    fit="cover"
+                                    borderRadius="20px"
+                                  />
+                                </Box>
+                                <Box
+                                  w="100%"
+                                  h="20%"
+                                  position="absolute"
+                                  left="0"
+                                  bottom="0"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  background="whiteAlpha.900"
+                                  textAlign="center"
+                                  borderEndStartRadius="20px"
+                                  borderEndEndRadius="20px"
+                                >
+                                  <Text as="p" fontWeight="bold">
+                                    {data.seiyuu?.person?.name.length > 30
+                                      ? `${data.seiyuu?.person?.name.slice(
+                                          0,
+                                          30
+                                        )}...`
+                                      : data.seiyuu?.person?.name}
+                                  </Text>
+                                </Box>
                               </Box>
                             </Section>
                           );
