@@ -40,17 +40,11 @@ export default function AnimeDetail() {
     const { charactersData } = getAnimeCharacters(id.toString());
     const { recommendationsData } = getAnimeRecommendations(id.toString());
 
-    animeDetails = detailsData && detailsData.data ? detailsData.data : null;
-    animeEpisodes =
-      episodesData && episodesData.data ? episodesData.data : null;
-    animeCharacters =
-      charactersData && charactersData.data ? charactersData.data : null;
-    animeRecommendations =
-      recommendationsData && recommendationsData.data
-        ? recommendationsData.data
-        : null;
+    animeDetails = detailsData?.data;
+    animeEpisodes = episodesData?.data;
+    animeCharacters = charactersData?.data;
+    animeRecommendations = recommendationsData?.data;
 
-    // Change recommend.entry to recommend.data
     if (animeRecommendations) {
       animeRecommendations.data = [];
       animeRecommendations.map((recommend) => {
@@ -96,8 +90,6 @@ export default function AnimeDetail() {
 
       if (animeDetails.studios.length !== 0)
         animeDetails.studios.map((studio) => studiosList.push(studio.name));
-
-      console.log(animeRecommendations);
 
       return (
         <Layout title={animeDetails.title} router="/">
